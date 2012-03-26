@@ -7,6 +7,7 @@
 // CWebApplication properties can be configured here.
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
+    
 	'name'=>'GITBox',
 
 	// preloading 'log' component
@@ -37,7 +38,7 @@ return array(
 			'allowAutoLogin'=>true,
 		),
 		// uncomment the following to enable URLs in path-format
-		/*
+		
 		'urlManager'=>array(
 			'urlFormat'=>'path',
 			'rules'=>array(
@@ -46,7 +47,7 @@ return array(
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
 			),
 		),
-		*/
+		
         
         /*
 		'db'=>array(
@@ -68,6 +69,7 @@ return array(
 			// use 'site/error' action to display errors
             'errorAction'=>'site/error',
         ),
+        
 		'log'=>array(
 			'class'=>'CLogRouter',
 			'routes'=>array(

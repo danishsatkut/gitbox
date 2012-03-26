@@ -19,3 +19,18 @@ Stack trace:
 #16 {main} REQUEST_URI=/working-sandbox/gitbox/index.php?r=gii/model
 2012/03/26 14:57:46 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'gitbox-test.user' doesn't exist. The SQL statement executed was: SHOW COLUMNS FROM `user`.
 in C:\xampp\htdocs\working-sandbox\gitbox\index.php (13)
+2012/03/26 15:11:51 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in C:\xampp\yii-framework\web\CController.php:328
+Stack trace:
+#0 C:\xampp\yii-framework\web\CController.php(301): CController->invalidActionParams(Object(CInlineAction))
+#1 C:\xampp\yii-framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#2 C:\xampp\yii-framework\web\filters\CFilter.php(41): CFilterChain->run()
+#3 C:\xampp\yii-framework\web\CController.php(1144): CFilter->filter(Object(CFilterChain))
+#4 C:\xampp\yii-framework\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#5 C:\xampp\yii-framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#6 C:\xampp\yii-framework\web\CController.php(283): CFilterChain->run()
+#7 C:\xampp\yii-framework\web\CController.php(257): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 C:\xampp\yii-framework\web\CWebApplication.php(277): CController->run('view')
+#9 C:\xampp\yii-framework\web\CWebApplication.php(136): CWebApplication->runController('user/view')
+#10 C:\xampp\yii-framework\base\CApplication.php(158): CWebApplication->processRequest()
+#11 C:\xampp\htdocs\working-sandbox\gitbox\index.php(13): CApplication->run()
+#12 {main} REQUEST_URI=/working-sandbox/gitbox/index.php?r=user/view
