@@ -6,6 +6,8 @@
  * @todo Converting create action to register
  * @todo create a new action for password change
  * @todo create a new action for password renewal
+ * @todo create a new action for uploading new avatar
+ * @todo create a new action for changing avatar
  */
 class UserController extends Controller
 {
