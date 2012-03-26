@@ -14,20 +14,22 @@ class UserIdentity extends CUserIdentity
 	 * In practical applications, this should be changed to authenticate
 	 * against some persistent user identity storage (e.g. database).
 	 * @return boolean whether authentication succeeds.
+     * 
+     * @todo To authenticate via username and password from the database.
+     * This username and password is retrieved via User model. The password is
+     * in hashed form.
 	 */
 	public function authenticate()
 	{
-		$users=array(
-			// username => password
-			'demo'=>'demo',
-			'admin'=>'admin',
-		);
-		if(!isset($users[$this->username]))
-			$this->errorCode=self::ERROR_USERNAME_INVALID;
-		else if($users[$this->username]!==$this->password)
-			$this->errorCode=self::ERROR_PASSWORD_INVALID;
-		else
+        // where $this->username is declared in parent CUserIdentity
+//        $user = User::model()->findByAttributes(array("username"=>$this->username));
+//        
+//		if($user === null)  // user does not exists
+//			$this->errorCode=self::ERROR_USERNAME_INVALID;
+//		else if($user->password !== sha1($this->password)    // password does not match
+//			$this->errorCode=self::ERROR_PASSWORD_INVALID;
+//		else  // username and password match
 			$this->errorCode=self::ERROR_NONE;
-		return !$this->errorCode;
-	}
+        return !$this->errorCode;
+    }
 }

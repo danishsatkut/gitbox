@@ -5,7 +5,6 @@
  *
  * The followings are the available columns in table 'user':
  * @property string $id
- * @property string $group_id
  * @property string $username
  * @property string $password
  * @property string $salt
@@ -54,6 +53,9 @@
  * @property integer $avatar
  * @property integer $avatar_width
  * @property integer $avatar_height
+ * 
+ * @todo Remove all the extra properties from the User model. Also make all code
+ * to reflect these changes.
  */
 
 class User extends CActiveRecord
@@ -99,7 +101,7 @@ class User extends CActiveRecord
 			array('signature', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, group_id, username, password, salt, email, title, realname, url, facebook, twitter, linkedin, skype, jabber, icq, msn, aim, yahoo, location, signature, disp_topics, disp_posts, email_setting, notify_with_post, auto_notify, show_smilies, show_img, show_img_sig, show_avatars, show_sig, access_keys, timezone, dst, time_format, date_format, language, style, num_posts, last_post, last_search, last_email_sent, registered, registration_ip, last_visit, admin_note, activate_string, activate_key, avatar, avatar_width, avatar_height', 'safe', 'on'=>'search'),
+			// array('id, username, email, title, realname' , 'safe', 'on'=>'search'),
 		);
 	}
 

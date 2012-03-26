@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * Controller for your User functionalities
+ * 
+ * @todo Converting create action to register
+ * @todo create a new action for password change
+ * @todo create a new action for password renewal
+ */
 class UserController extends Controller
 {
 	/**
@@ -36,7 +43,7 @@ class UserController extends Controller
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('admin','delete'),
-				'users'=>array('admin'),
+				'users'=>array('@'),
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
@@ -58,6 +65,8 @@ class UserController extends Controller
 	/**
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
+     * 
+     * @todo Call this action as register.
 	 */
 	public function actionCreate()
 	{
@@ -68,7 +77,10 @@ class UserController extends Controller
 
 		if(isset($_POST['User']))
 		{
-			$model->attributes=$_POST['User'];
+			$model->username = $_POST['User']['username'];
+            $model->password = sha1($_POST['User']['password']);
+            $model->email = $_POST['User']['email'];
+            
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
