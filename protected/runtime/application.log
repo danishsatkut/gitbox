@@ -100,3 +100,41 @@ Stack trace:
 #9 C:\xampp\yii-framework\base\CApplication.php(158): CWebApplication->processRequest()
 #10 C:\xampp\htdocs\working-sandbox\gitbox\index.php(13): CApplication->run()
 #11 {main} REQUEST_URI=/working-sandbox/gitbox/index.php/user/admin
+2012/03/27 15:10:41 [error] [exception.CException] exception 'CException' with message 'Property "LoginForm.email" is not defined.' in C:\xampp\yii-framework\base\CComponent.php:131
+Stack trace:
+#0 C:\xampp\yii-framework\web\helpers\CHtml.php(2063): CComponent->__get('email')
+#1 C:\xampp\yii-framework\web\helpers\CHtml.php(1791): CHtml::resolveValue(Object(LoginForm), 'email')
+#2 C:\xampp\yii-framework\web\helpers\CHtml.php(1199): CHtml::activeInputField('text', Object(LoginForm), 'email', Array)
+#3 C:\xampp\yii-framework\web\widgets\CActiveForm.php(568): CHtml::activeTextField(Object(LoginForm), 'email', Array)
+#4 C:\xampp\htdocs\working-sandbox\gitbox\protected\views\site\login.php(25): CActiveForm->textField(Object(LoginForm), 'email')
+#5 C:\xampp\yii-framework\web\CBaseController.php(119): require('C:\xampp\htdocs...')
+#6 C:\xampp\yii-framework\web\CBaseController.php(88): CBaseController->renderInternal('C:\xampp\htdocs...', Array, true)
+#7 C:\xampp\yii-framework\web\CController.php(866): CBaseController->renderFile('C:\xampp\htdocs...', Array, true)
+#8 C:\xampp\yii-framework\web\CController.php(779): CController->renderPartial('login', Array, true)
+#9 C:\xampp\htdocs\working-sandbox\gitbox\protected\controllers\SiteController.php(93): CController->render('login', Array)
+#10 C:\xampp\yii-framework\web\actions\CInlineAction.php(50): SiteController->actionLogin()
+#11 C:\xampp\yii-framework\web\CController.php(300): CInlineAction->runWithParams(Array)
+#12 C:\xampp\yii-framework\web\CController.php(278): CController->runAction(Object(CInlineAction))
+#13 C:\xampp\yii-framework\web\CController.php(257): CController->runActionWithFilters(Object(CInlineAction), Array)
+#14 C:\xampp\yii-framework\web\CWebApplication.php(277): CController->run('login')
+#15 C:\xampp\yii-framework\web\CWebApplication.php(136): CWebApplication->runController('site/login')
+#16 C:\xampp\yii-framework\base\CApplication.php(158): CWebApplication->processRequest()
+#17 C:\xampp\htdocs\working-sandbox\gitbox\index.php(22): CApplication->run()
+#18 {main} REQUEST_URI=/working-sandbox/gitbox/index.php/site/login
+2012/03/27 15:16:58 [error] [exception.CException] exception 'CException' with message 'Property "UserIdentity.email" is not defined.' in C:\xampp\yii-framework\base\CComponent.php:131
+Stack trace:
+#0 C:\xampp\htdocs\working-sandbox\gitbox\protected\components\UserIdentity.php(25): CComponent->__get('email')
+#1 C:\xampp\htdocs\working-sandbox\gitbox\protected\models\LoginForm.php(53): UserIdentity->authenticate()
+#2 C:\xampp\yii-framework\validators\CInlineValidator.php(39): LoginForm->authenticate('password', Array)
+#3 C:\xampp\yii-framework\validators\CValidator.php(192): CInlineValidator->validateAttribute(Object(LoginForm), 'password')
+#4 C:\xampp\yii-framework\base\CModel.php(152): CValidator->validate(Object(LoginForm), NULL)
+#5 C:\xampp\htdocs\working-sandbox\gitbox\protected\controllers\SiteController.php(89): CModel->validate()
+#6 C:\xampp\yii-framework\web\actions\CInlineAction.php(50): SiteController->actionLogin()
+#7 C:\xampp\yii-framework\web\CController.php(300): CInlineAction->runWithParams(Array)
+#8 C:\xampp\yii-framework\web\CController.php(278): CController->runAction(Object(CInlineAction))
+#9 C:\xampp\yii-framework\web\CController.php(257): CController->runActionWithFilters(Object(CInlineAction), Array)
+#10 C:\xampp\yii-framework\web\CWebApplication.php(277): CController->run('login')
+#11 C:\xampp\yii-framework\web\CWebApplication.php(136): CWebApplication->runController('site/login')
+#12 C:\xampp\yii-framework\base\CApplication.php(158): CWebApplication->processRequest()
+#13 C:\xampp\htdocs\working-sandbox\gitbox\index.php(22): CApplication->run()
+#14 {main} REQUEST_URI=/working-sandbox/gitbox/index.php/site/login

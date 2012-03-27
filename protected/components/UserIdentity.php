@@ -7,6 +7,7 @@
  */
 class UserIdentity extends CUserIdentity
 {
+    
 	/**
 	 * Authenticates a user.
 	 * The example implementation makes sure if the username and password
@@ -22,7 +23,7 @@ class UserIdentity extends CUserIdentity
 	public function authenticate()
 	{
         // where $this->username is declared in parent CUserIdentity
-        $user = User::model()->findByAttributes(array("username"=>$this->username));
+        $user = User::model()->findByAttributes(array("email"=>$this->username));
         
 		if($user === null)  // user does not exists
 			$this->errorCode=self::ERROR_USERNAME_INVALID;
