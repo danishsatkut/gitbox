@@ -190,3 +190,11 @@ REQUEST_URI=/working-sandbox/gitbox/index.php/site/login
 in C:\xampp\htdocs\working-sandbox\gitbox\protected\models\User.php (130)
 in C:\xampp\htdocs\working-sandbox\gitbox\protected\components\UserIdentity.php (31)
 in C:\xampp\htdocs\working-sandbox\gitbox\protected\models\LoginForm.php (55)
+2012/03/28 02:04:58 [error] [php] trim() expects parameter 1 to be string, array given (C:\xampp\htdocs\working-sandbox\gitbox\protected\components\RequireLogin.php:22)
+Stack trace:
+#0 C:\xampp\yii-framework\base\CApplication.php(185): CWebApplication->raiseEvent()
+#1 C:\xampp\yii-framework\base\CApplication.php(157): CWebApplication->onBeginRequest()
+#2 C:\xampp\htdocs\working-sandbox\gitbox\index.php(22): CWebApplication->run()
+REQUEST_URI=/working-sandbox/gitbox/index.php/site/login
+in C:\xampp\htdocs\working-sandbox\gitbox\protected\components\RequireLogin.php (22)
+in C:\xampp\htdocs\working-sandbox\gitbox\index.php (22)

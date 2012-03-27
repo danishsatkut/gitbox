@@ -71,6 +71,11 @@ class SiteController extends Controller
 	 */
 	public function actionLogin()
 	{
+        // If user is already logged in, redirect to homepage
+        if(!Yii::app()->user->isGuest)
+            $this->redirect(Yii::app()->homeUrl);
+        
+        // Else perform login action
 		$model=new LoginForm;
 
 		// if it is ajax validation request

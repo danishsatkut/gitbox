@@ -93,4 +93,11 @@ return array(
 		// this is used in contact page
 		'adminEmail'=>'gitbox@localhost.com',
 	),
+    
+    // Attach a login required for all pages behavior
+    'behaviors'=>array(
+        'onBeginRequest'=>array(
+            'class'=>'application.components.RequireLogin',
+        )
+    ),
 );
