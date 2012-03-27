@@ -1,2 +1,4 @@
 /nbproject/
 *.log
+/protected/runtime/
+/protected/runtime/application.log
