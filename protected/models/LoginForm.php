@@ -63,6 +63,7 @@ class LoginForm extends CFormModel
 	{
 		if($this->_identity===null)
 		{
+            // $this->_identity will be set from the authenticate validator
 			$this->_identity=new UserIdentity($this->username,$this->password);
 			$this->_identity->authenticate();
 		}

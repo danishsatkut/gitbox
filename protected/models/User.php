@@ -12,16 +12,16 @@
  * @property integer $avatar
  * @property integer $avatar_width
  * @property integer $avatar_height
+ * 
+ * New Added:
+ * @property string firstname
+ * @property string middlename
+ * @property string lastname
  *
  * Experimental features: 
  * @property string $activate_string
  * @property string $activate_key
  *
- * 
- * @todo Remove all the extra properties from the User model. Also make all code
- * to reflect these changes.
- * 
- * @todo implementing firstname and lastname in user table in database
  */
 
 class User extends CActiveRecord
@@ -45,15 +45,20 @@ class User extends CActiveRecord
 
 	/**
 	 * @return array validation rules for model attributes.
+     * 
+     * @todo Dont use username for displaying user data, rather use {firstname,
+     * lastname} combo.
 	 */
 	public function rules()
 	{
 		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
+		// will receive user inputs. Only these will be generated in Forms
 		return array(
 			array('username', 'length', 'max'=>20),
-			array('password, realname', 'length', 'max'=>40),
+			array('password', 'length', 'max'=>40),
 			array('email', 'length', 'max'=>80),
+            array('firstname, middlename, lastname', 'length', 'max'=>30),
+            array('username, password, email, firstname, lastname', 'required'),
             
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -88,6 +93,9 @@ class User extends CActiveRecord
 			'avatar' => 'Avatar',
 			'avatar_width' => 'Avatar Width',
 			'avatar_height' => 'Avatar Height',
+            'firstname' => 'First Name',
+            'middlename' => 'Middle Name',
+            'lastname' => 'Last Name',
 		);
 	}
 

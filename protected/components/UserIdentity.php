@@ -22,13 +22,13 @@ class UserIdentity extends CUserIdentity
 	public function authenticate()
 	{
         // where $this->username is declared in parent CUserIdentity
-//        $user = User::model()->findByAttributes(array("username"=>$this->username));
-//        
-//		if($user === null)  // user does not exists
-//			$this->errorCode=self::ERROR_USERNAME_INVALID;
-//		else if($user->password !== sha1($this->password)    // password does not match
-//			$this->errorCode=self::ERROR_PASSWORD_INVALID;
-//		else  // username and password match
+        $user = User::model()->findByAttributes(array("username"=>$this->username));
+        
+		if($user === null)  // user does not exists
+			$this->errorCode=self::ERROR_USERNAME_INVALID;
+		else if($user->password !== sha1($this->password))    // password does not match
+			$this->errorCode=self::ERROR_PASSWORD_INVALID;
+		else  // username and password match
 			$this->errorCode=self::ERROR_NONE;
         return !$this->errorCode;
     }
