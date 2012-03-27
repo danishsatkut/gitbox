@@ -7,18 +7,16 @@
  */
 class UserIdentity extends CUserIdentity
 {
+    private $_id;
+    
+    public function getId() {
+        return $this->_id;  
+    }
     
 	/**
 	 * Authenticates a user.
-	 * The example implementation makes sure if the username and password
-	 * are both 'demo'.
-	 * In practical applications, this should be changed to authenticate
-	 * against some persistent user identity storage (e.g. database).
+	 * 
 	 * @return boolean whether authentication succeeds.
-     * 
-     * @todo To authenticate via username and password from the database.
-     * This username and password is retrieved via User model. The password is
-     * in hashed form.
 	 */
 	public function authenticate()
 	{
@@ -27,10 +25,14 @@ class UserIdentity extends CUserIdentity
         
 		if($user === null)  // user does not exists
 			$this->errorCode=self::ERROR_USERNAME_INVALID;
-		else if($user->password !== sha1($this->password))    // password does not match
+		else if(!$user->validatePassword($this->password))    // password does not match
 			$this->errorCode=self::ERROR_PASSWORD_INVALID;
-		else  // username and password match
+		else {
+            // Store id and username in sessions
+            $this->_id = $user->id;
+            $this->username = $user->username;
 			$this->errorCode=self::ERROR_NONE;
+        }
         return !$this->errorCode;
     }
 }

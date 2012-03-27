@@ -129,8 +129,7 @@ class SiteController extends Controller
             if($model->validate())
             {
                 // form inputs are valid, do something here
-                // hash the password before saving.
-                $model->password = sha1($model->password);
+                
                 
                 // Add the user in the table
                 if($model->save())

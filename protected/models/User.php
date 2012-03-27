@@ -26,7 +26,7 @@
 
 class User extends CActiveRecord
 {
-	/**
+    /**
 	 * Returns the static model of the specified AR class.
 	 * @return User the static model class
 	 */
@@ -55,11 +55,12 @@ class User extends CActiveRecord
 		// will receive user inputs. Only these will be generated in Forms
 		return array(
 			array('username', 'length', 'max'=>20),
-			array('password', 'length', 'max'=>40),
-			array('email', 'length', 'max'=>80),
+			array('password', 'length', 'max'=>40, 'min'=>8),
+            array('email', 'length', 'max'=>80),
             array('firstname, middlename, lastname', 'length', 'max'=>30),
             array('username, password, email, firstname, lastname', 'required'),
             array('username, email', 'unique'),
+            array('email','email'),
             
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -120,4 +121,39 @@ class User extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+    
+    /**
+     * Validates the password passed in as parameter with the model password.
+     * 
+     * @return boolean whether password is valid 
+     */
+    public function validatePassword($password) {
+        if($this->password === $this->hashPassword($password)) {
+            return true;
+        }
+        return false;
+    }
+    
+    /**
+     * @todo implement the converting of passwords into hashed password via beforeSave
+     *  
+     */
+    private function hashPassword($password) {
+        return sha1($password);
+    }
+    
+    /**
+     * Hashing the password before saving the model data.
+     * 
+     * Common hashing before storing the user model data, rather than in each
+     * controller.
+     * 
+     * @return boolean returns whether data should be saved (from parent).
+     */
+    protected function beforeSave() {
+        
+        $this->password = $this->hashPassword($this->password);
+        // calls the beforeSave of AR
+        return parent::beforeSave();
+    }
 }

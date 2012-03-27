@@ -172,3 +172,21 @@ Stack trace:
 #9 C:\xampp\yii-framework\base\CApplication.php(158): CWebApplication->processRequest()
 #10 C:\xampp\htdocs\working-sandbox\gitbox\index.php(22): CApplication->run()
 #11 {main} REQUEST_URI=/working-sandbox/gitbox/index.php/site/register
+2012/03/27 23:19:01 [error] [php] Missing argument 1 for User::validatePassword(), called in C:\xampp\htdocs\working-sandbox\gitbox\protected\components\UserIdentity.php on line 31 and defined (C:\xampp\htdocs\working-sandbox\gitbox\protected\models\User.php:130)
+Stack trace:
+#0 C:\xampp\yii-framework\validators\CInlineValidator.php(39): LoginForm->authenticate()
+#1 C:\xampp\yii-framework\validators\CValidator.php(192): CInlineValidator->validateAttribute()
+#2 C:\xampp\yii-framework\base\CModel.php(152): CInlineValidator->validate()
+#3 C:\xampp\htdocs\working-sandbox\gitbox\protected\controllers\SiteController.php(89): LoginForm->validate()
+#4 C:\xampp\yii-framework\web\actions\CInlineAction.php(50): SiteController->actionLogin()
+#5 C:\xampp\yii-framework\web\CController.php(300): CInlineAction->runWithParams()
+#6 C:\xampp\yii-framework\web\CController.php(278): SiteController->runAction()
+#7 C:\xampp\yii-framework\web\CController.php(257): SiteController->runActionWithFilters()
+#8 C:\xampp\yii-framework\web\CWebApplication.php(277): SiteController->run()
+#9 C:\xampp\yii-framework\web\CWebApplication.php(136): CWebApplication->runController()
+#10 C:\xampp\yii-framework\base\CApplication.php(158): CWebApplication->processRequest()
+#11 C:\xampp\htdocs\working-sandbox\gitbox\index.php(22): CWebApplication->run()
+REQUEST_URI=/working-sandbox/gitbox/index.php/site/login
+in C:\xampp\htdocs\working-sandbox\gitbox\protected\models\User.php (130)
+in C:\xampp\htdocs\working-sandbox\gitbox\protected\components\UserIdentity.php (31)
+in C:\xampp\htdocs\working-sandbox\gitbox\protected\models\LoginForm.php (55)
