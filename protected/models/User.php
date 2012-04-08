@@ -27,6 +27,11 @@
 class User extends CActiveRecord
 {
     /**
+     * @var string Stores the second password 
+     */
+    public $passwordCompare;
+    
+    /**
 	 * Returns the static model of the specified AR class.
 	 * @return User the static model class
 	 */
@@ -56,11 +61,13 @@ class User extends CActiveRecord
 		return array(
 			array('username', 'length', 'max'=>20),
 			array('password', 'length', 'max'=>40, 'min'=>8),
+            array('password', 'compare', 'compareAttribute'=>'passwordCompare', 'on'=>'register'),
             array('email', 'length', 'max'=>80),
             array('firstname, middlename, lastname', 'length', 'max'=>30),
             array('username, password, email, firstname, lastname', 'required'),
             array('username, email', 'unique'),
             array('email','email'),
+            array('passwordCompare', 'required', 'on'=>'register'),
             
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -98,6 +105,7 @@ class User extends CActiveRecord
             'firstname' => 'First Name',
             'middlename' => 'Middle Name',
             'lastname' => 'Last Name',
+            'passwordCompare' => 'Password again',
 		);
 	}
 
