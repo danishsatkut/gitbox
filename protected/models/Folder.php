@@ -34,19 +34,24 @@ class Folder extends CActiveRecord
 
 	/**
 	 * @return array validation rules for model attributes.
+     * 
+     * @todo create a new rule to make sure the folder name is unique in the directory
 	 */
 	public function rules()
 	{
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('folderName, folderDescription, dateCreated, dateModified, createdBy_fk, modifiedBy_fk, folderPath', 'required'),
+			array('folderName', 'required'),
 			array('folderName', 'length', 'max'=>30),
-			array('createdBy_fk, modifiedBy_fk', 'length', 'max'=>10),
-			array('folderPath', 'length', 'max'=>31),
+            
+            // The following rule should be implemented in order to provide unique
+            // folder names in a directory.
+            // array('folderName', 'uniqueInDirectory'),
+
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('folderId_pk, folderName, folderDescription, dateCreated, dateModified, createdBy_fk, modifiedBy_fk, folderPath', 'safe', 'on'=>'search'),
+			array('folderName', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -58,6 +63,10 @@ class Folder extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+            'files' => array(self::HAS_MANY, 'File', 'folderId_fk'),
+			'modifiedBy' => array(self::BELONGS_TO, 'User', 'modifiedBy_fk'),
+			'owner' => array(self::BELONGS_TO, 'User', 'createdBy_fk'),
+			'virtualfolders' => array(self::HAS_MANY, 'Virtualfolder', 'folderId_fk'),
 		);
 	}
 
@@ -67,14 +76,12 @@ class Folder extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'folderId_pk' => 'Folder Id Pk',
 			'folderName' => 'Folder Name',
 			'folderDescription' => 'Folder Description',
 			'dateCreated' => 'Date Created',
 			'dateModified' => 'Date Modified',
-			'createdBy_fk' => 'Created By Fk',
-			'modifiedBy_fk' => 'Modified By Fk',
-			'folderPath' => 'Folder Path',
+			'createdBy_fk' => 'Created By',
+			'modifiedBy_fk' => 'Last Modified By',
 		);
 	}
 
