@@ -68,9 +68,16 @@ class FolderController extends Controller
 
 		if(isset($_POST['Folder']))
 		{
-			$model->attributes=$_POST['Folder'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->folderId_pk));
+            // data from the form
+			$model->folderName=$_POST['Folder']['folderName'];
+            $model->folderDescription = $_POST['Folder']['folderDescription'] === '' ? null : 
+                $_POST['Folder']['folderDescription'];
+            
+            // generate additional data
+            $model->owner = $model->modifiedBy = Yii::app()->user->id;
+            
+            //if($model->save())
+			//	$this->redirect(array('view','id'=>$model->folderId_pk));
 		}
 
 		$this->render('create',array(

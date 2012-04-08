@@ -17,6 +17,7 @@ return array(
 	'import'=>array(
 		'application.models.*',
 		'application.components.*',
+        'application.extensions.file.CFile',
 	),
 
 	'modules'=>array(
@@ -85,6 +86,10 @@ return array(
 				*/
 			),
 		),
+        
+        'storage'=>array(
+            'class'=>'StorageFolder',
+        ),
 	),
 
 	// application-level parameters that can be accessed

@@ -12,6 +12,12 @@
  * @property string $createdBy_fk
  * @property string $modifiedBy_fk
  * @property string $folderPath
+ * 
+ * The following attributes are available from relations:
+ * @property File[] $files
+ * @property User owner
+ * @property User modifiedBy
+ * @property VirtualFolder[] virtualfolders
  */
 class Folder extends CActiveRecord
 {
@@ -80,8 +86,8 @@ class Folder extends CActiveRecord
 			'folderDescription' => 'Folder Description',
 			'dateCreated' => 'Date Created',
 			'dateModified' => 'Date Modified',
-			'createdBy_fk' => 'Created By',
-			'modifiedBy_fk' => 'Last Modified By',
+			'owner' => 'Created By',
+			'modifiedBy' => 'Last Modified By',
 		);
 	}
 
@@ -109,4 +115,14 @@ class Folder extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+    
+    /**
+     * Sets the modified datetime property to now 
+     */
+    protected function beforeSave() {
+        $date = new DateTime();
+        $this->dateModified =  $date->getTimestamp();
+        
+        return parent::beforeSave();
+    }
 }

@@ -134,7 +134,7 @@ class CFile extends CApplicationComponent {
 	 * @author Danish Satkut
 	 */
 	private static $className =  null;
-
+   
 
     /**
      * Returns the instance of CFile for the specified file.
