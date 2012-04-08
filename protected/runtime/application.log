@@ -100,3 +100,101 @@ Stack trace:
 #9 C:\xampp\yii-framework\base\CApplication.php(158): CWebApplication->processRequest()
 #10 C:\xampp\htdocs\working-sandbox\gitbox\index.php(13): CApplication->run()
 #11 {main} REQUEST_URI=/working-sandbox/gitbox/index.php/user/admin
+2012/03/27 15:10:41 [error] [exception.CException] exception 'CException' with message 'Property "LoginForm.email" is not defined.' in C:\xampp\yii-framework\base\CComponent.php:131
+Stack trace:
+#0 C:\xampp\yii-framework\web\helpers\CHtml.php(2063): CComponent->__get('email')
+#1 C:\xampp\yii-framework\web\helpers\CHtml.php(1791): CHtml::resolveValue(Object(LoginForm), 'email')
+#2 C:\xampp\yii-framework\web\helpers\CHtml.php(1199): CHtml::activeInputField('text', Object(LoginForm), 'email', Array)
+#3 C:\xampp\yii-framework\web\widgets\CActiveForm.php(568): CHtml::activeTextField(Object(LoginForm), 'email', Array)
+#4 C:\xampp\htdocs\working-sandbox\gitbox\protected\views\site\login.php(25): CActiveForm->textField(Object(LoginForm), 'email')
+#5 C:\xampp\yii-framework\web\CBaseController.php(119): require('C:\xampp\htdocs...')
+#6 C:\xampp\yii-framework\web\CBaseController.php(88): CBaseController->renderInternal('C:\xampp\htdocs...', Array, true)
+#7 C:\xampp\yii-framework\web\CController.php(866): CBaseController->renderFile('C:\xampp\htdocs...', Array, true)
+#8 C:\xampp\yii-framework\web\CController.php(779): CController->renderPartial('login', Array, true)
+#9 C:\xampp\htdocs\working-sandbox\gitbox\protected\controllers\SiteController.php(93): CController->render('login', Array)
+#10 C:\xampp\yii-framework\web\actions\CInlineAction.php(50): SiteController->actionLogin()
+#11 C:\xampp\yii-framework\web\CController.php(300): CInlineAction->runWithParams(Array)
+#12 C:\xampp\yii-framework\web\CController.php(278): CController->runAction(Object(CInlineAction))
+#13 C:\xampp\yii-framework\web\CController.php(257): CController->runActionWithFilters(Object(CInlineAction), Array)
+#14 C:\xampp\yii-framework\web\CWebApplication.php(277): CController->run('login')
+#15 C:\xampp\yii-framework\web\CWebApplication.php(136): CWebApplication->runController('site/login')
+#16 C:\xampp\yii-framework\base\CApplication.php(158): CWebApplication->processRequest()
+#17 C:\xampp\htdocs\working-sandbox\gitbox\index.php(22): CApplication->run()
+#18 {main} REQUEST_URI=/working-sandbox/gitbox/index.php/site/login
+2012/03/27 15:16:58 [error] [exception.CException] exception 'CException' with message 'Property "UserIdentity.email" is not defined.' in C:\xampp\yii-framework\base\CComponent.php:131
+Stack trace:
+#0 C:\xampp\htdocs\working-sandbox\gitbox\protected\components\UserIdentity.php(25): CComponent->__get('email')
+#1 C:\xampp\htdocs\working-sandbox\gitbox\protected\models\LoginForm.php(53): UserIdentity->authenticate()
+#2 C:\xampp\yii-framework\validators\CInlineValidator.php(39): LoginForm->authenticate('password', Array)
+#3 C:\xampp\yii-framework\validators\CValidator.php(192): CInlineValidator->validateAttribute(Object(LoginForm), 'password')
+#4 C:\xampp\yii-framework\base\CModel.php(152): CValidator->validate(Object(LoginForm), NULL)
+#5 C:\xampp\htdocs\working-sandbox\gitbox\protected\controllers\SiteController.php(89): CModel->validate()
+#6 C:\xampp\yii-framework\web\actions\CInlineAction.php(50): SiteController->actionLogin()
+#7 C:\xampp\yii-framework\web\CController.php(300): CInlineAction->runWithParams(Array)
+#8 C:\xampp\yii-framework\web\CController.php(278): CController->runAction(Object(CInlineAction))
+#9 C:\xampp\yii-framework\web\CController.php(257): CController->runActionWithFilters(Object(CInlineAction), Array)
+#10 C:\xampp\yii-framework\web\CWebApplication.php(277): CController->run('login')
+#11 C:\xampp\yii-framework\web\CWebApplication.php(136): CWebApplication->runController('site/login')
+#12 C:\xampp\yii-framework\base\CApplication.php(158): CWebApplication->processRequest()
+#13 C:\xampp\htdocs\working-sandbox\gitbox\index.php(22): CApplication->run()
+#14 {main} REQUEST_URI=/working-sandbox/gitbox/index.php/site/login
+2012/03/27 17:04:35 [error] [system.db.CDbCommand] CDbCommand::execute() failed: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'danish_satkut@hotmail.com' for key 'email'. The SQL statement executed was: INSERT INTO `user` (`group_id`, `username`, `password`, `email`, `email_setting`, `notify_with_post`, `auto_notify`, `show_smilies`, `show_img`, `show_img_sig`, `show_avatars`, `show_sig`, `access_keys`, `timezone`, `dst`, `time_format`, `date_format`, `language`, `style`, `num_posts`, `registered`, `registration_ip`, `last_visit`, `avatar`, `avatar_width`, `avatar_height`, `firstname`, `middlename`, `lastname`) VALUES (:yp0, :yp1, :yp2, :yp3, :yp4, :yp5, :yp6, :yp7, :yp8, :yp9, :yp10, :yp11, :yp12, :yp13, :yp14, :yp15, :yp16, :yp17, :yp18, :yp19, :yp20, :yp21, :yp22, :yp23, :yp24, :yp25, :yp26, :yp27, :yp28).
+in C:\xampp\htdocs\working-sandbox\gitbox\protected\controllers\SiteController.php (136)
+in C:\xampp\htdocs\working-sandbox\gitbox\index.php (22)
+2012/03/27 17:04:35 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'danish_satkut@hotmail.com' for key 'email'. The SQL statement executed was: INSERT INTO `user` (`group_id`, `username`, `password`, `email`, `email_setting`, `notify_with_post`, `auto_notify`, `show_smilies`, `show_img`, `show_img_sig`, `show_avatars`, `show_sig`, `access_keys`, `timezone`, `dst`, `time_format`, `date_format`, `language`, `style`, `num_posts`, `registered`, `registration_ip`, `last_visit`, `avatar`, `avatar_width`, `avatar_height`, `firstname`, `middlename`, `lastname`) VALUES (:yp0, :yp1, :yp2, :yp3, :yp4, :yp5, :yp6, :yp7, :yp8, :yp9, :yp10, :yp11, :yp12, :yp13, :yp14, :yp15, :yp16, :yp17, :yp18, :yp19, :yp20, :yp21, :yp22, :yp23, :yp24, :yp25, :yp26, :yp27, :yp28)' in C:\xampp\yii-framework\db\CDbCommand.php:336
+Stack trace:
+#0 C:\xampp\yii-framework\db\ar\CActiveRecord.php(1017): CDbCommand->execute()
+#1 C:\xampp\yii-framework\db\ar\CActiveRecord.php(781): CActiveRecord->insert(NULL)
+#2 C:\xampp\htdocs\working-sandbox\gitbox\protected\controllers\SiteController.php(136): CActiveRecord->save()
+#3 C:\xampp\yii-framework\web\actions\CInlineAction.php(50): SiteController->actionRegister()
+#4 C:\xampp\yii-framework\web\CController.php(300): CInlineAction->runWithParams(Array)
+#5 C:\xampp\yii-framework\web\CController.php(278): CController->runAction(Object(CInlineAction))
+#6 C:\xampp\yii-framework\web\CController.php(257): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 C:\xampp\yii-framework\web\CWebApplication.php(277): CController->run('register')
+#8 C:\xampp\yii-framework\web\CWebApplication.php(136): CWebApplication->runController('site/register')
+#9 C:\xampp\yii-framework\base\CApplication.php(158): CWebApplication->processRequest()
+#10 C:\xampp\htdocs\working-sandbox\gitbox\index.php(22): CApplication->run()
+#11 {main} REQUEST_URI=/working-sandbox/gitbox/index.php/site/register
+2012/03/27 17:07:15 [error] [system.db.CDbCommand] CDbCommand::execute() failed: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'danish_satkut@hotmail.com' for key 'email'. The SQL statement executed was: INSERT INTO `user` (`group_id`, `username`, `password`, `email`, `email_setting`, `notify_with_post`, `auto_notify`, `show_smilies`, `show_img`, `show_img_sig`, `show_avatars`, `show_sig`, `access_keys`, `timezone`, `dst`, `time_format`, `date_format`, `language`, `style`, `num_posts`, `registered`, `registration_ip`, `last_visit`, `avatar`, `avatar_width`, `avatar_height`, `firstname`, `middlename`, `lastname`) VALUES (:yp0, :yp1, :yp2, :yp3, :yp4, :yp5, :yp6, :yp7, :yp8, :yp9, :yp10, :yp11, :yp12, :yp13, :yp14, :yp15, :yp16, :yp17, :yp18, :yp19, :yp20, :yp21, :yp22, :yp23, :yp24, :yp25, :yp26, :yp27, :yp28).
+in C:\xampp\htdocs\working-sandbox\gitbox\protected\controllers\SiteController.php (136)
+in C:\xampp\htdocs\working-sandbox\gitbox\index.php (22)
+2012/03/27 17:07:15 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'danish_satkut@hotmail.com' for key 'email'. The SQL statement executed was: INSERT INTO `user` (`group_id`, `username`, `password`, `email`, `email_setting`, `notify_with_post`, `auto_notify`, `show_smilies`, `show_img`, `show_img_sig`, `show_avatars`, `show_sig`, `access_keys`, `timezone`, `dst`, `time_format`, `date_format`, `language`, `style`, `num_posts`, `registered`, `registration_ip`, `last_visit`, `avatar`, `avatar_width`, `avatar_height`, `firstname`, `middlename`, `lastname`) VALUES (:yp0, :yp1, :yp2, :yp3, :yp4, :yp5, :yp6, :yp7, :yp8, :yp9, :yp10, :yp11, :yp12, :yp13, :yp14, :yp15, :yp16, :yp17, :yp18, :yp19, :yp20, :yp21, :yp22, :yp23, :yp24, :yp25, :yp26, :yp27, :yp28)' in C:\xampp\yii-framework\db\CDbCommand.php:336
+Stack trace:
+#0 C:\xampp\yii-framework\db\ar\CActiveRecord.php(1017): CDbCommand->execute()
+#1 C:\xampp\yii-framework\db\ar\CActiveRecord.php(781): CActiveRecord->insert(NULL)
+#2 C:\xampp\htdocs\working-sandbox\gitbox\protected\controllers\SiteController.php(136): CActiveRecord->save()
+#3 C:\xampp\yii-framework\web\actions\CInlineAction.php(50): SiteController->actionRegister()
+#4 C:\xampp\yii-framework\web\CController.php(300): CInlineAction->runWithParams(Array)
+#5 C:\xampp\yii-framework\web\CController.php(278): CController->runAction(Object(CInlineAction))
+#6 C:\xampp\yii-framework\web\CController.php(257): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 C:\xampp\yii-framework\web\CWebApplication.php(277): CController->run('register')
+#8 C:\xampp\yii-framework\web\CWebApplication.php(136): CWebApplication->runController('site/register')
+#9 C:\xampp\yii-framework\base\CApplication.php(158): CWebApplication->processRequest()
+#10 C:\xampp\htdocs\working-sandbox\gitbox\index.php(22): CApplication->run()
+#11 {main} REQUEST_URI=/working-sandbox/gitbox/index.php/site/register
+2012/03/27 23:19:01 [error] [php] Missing argument 1 for User::validatePassword(), called in C:\xampp\htdocs\working-sandbox\gitbox\protected\components\UserIdentity.php on line 31 and defined (C:\xampp\htdocs\working-sandbox\gitbox\protected\models\User.php:130)
+Stack trace:
+#0 C:\xampp\yii-framework\validators\CInlineValidator.php(39): LoginForm->authenticate()
+#1 C:\xampp\yii-framework\validators\CValidator.php(192): CInlineValidator->validateAttribute()
+#2 C:\xampp\yii-framework\base\CModel.php(152): CInlineValidator->validate()
+#3 C:\xampp\htdocs\working-sandbox\gitbox\protected\controllers\SiteController.php(89): LoginForm->validate()
+#4 C:\xampp\yii-framework\web\actions\CInlineAction.php(50): SiteController->actionLogin()
+#5 C:\xampp\yii-framework\web\CController.php(300): CInlineAction->runWithParams()
+#6 C:\xampp\yii-framework\web\CController.php(278): SiteController->runAction()
+#7 C:\xampp\yii-framework\web\CController.php(257): SiteController->runActionWithFilters()
+#8 C:\xampp\yii-framework\web\CWebApplication.php(277): SiteController->run()
+#9 C:\xampp\yii-framework\web\CWebApplication.php(136): CWebApplication->runController()
+#10 C:\xampp\yii-framework\base\CApplication.php(158): CWebApplication->processRequest()
+#11 C:\xampp\htdocs\working-sandbox\gitbox\index.php(22): CWebApplication->run()
+REQUEST_URI=/working-sandbox/gitbox/index.php/site/login
+in C:\xampp\htdocs\working-sandbox\gitbox\protected\models\User.php (130)
+in C:\xampp\htdocs\working-sandbox\gitbox\protected\components\UserIdentity.php (31)
+in C:\xampp\htdocs\working-sandbox\gitbox\protected\models\LoginForm.php (55)
+2012/03/28 02:04:58 [error] [php] trim() expects parameter 1 to be string, array given (C:\xampp\htdocs\working-sandbox\gitbox\protected\components\RequireLogin.php:22)
+Stack trace:
+#0 C:\xampp\yii-framework\base\CApplication.php(185): CWebApplication->raiseEvent()
+#1 C:\xampp\yii-framework\base\CApplication.php(157): CWebApplication->onBeginRequest()
+#2 C:\xampp\htdocs\working-sandbox\gitbox\index.php(22): CWebApplication->run()
+REQUEST_URI=/working-sandbox/gitbox/index.php/site/login
+in C:\xampp\htdocs\working-sandbox\gitbox\protected\components\RequireLogin.php (22)
+in C:\xampp\htdocs\working-sandbox\gitbox\index.php (22)

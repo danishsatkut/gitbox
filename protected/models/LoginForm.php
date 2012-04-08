@@ -7,7 +7,7 @@
  */
 class LoginForm extends CFormModel
 {
-	public $username;
+	public $email;
 	public $password;
 	public $rememberMe;
 
@@ -22,11 +22,13 @@ class LoginForm extends CFormModel
 	{
 		return array(
 			// username and password are required
-			array('username, password', 'required'),
+			array('email, password', 'required'),
 			// rememberMe needs to be a boolean
 			array('rememberMe', 'boolean'),
 			// password needs to be authenticated
 			array('password', 'authenticate'),
+            // email needs to be email validated
+            array('email','email'),
 		);
 	}
 
@@ -49,9 +51,13 @@ class LoginForm extends CFormModel
 		if(!$this->hasErrors())
 		{
             // $this->username and $this->password is set via the model
-			$this->_identity=new UserIdentity($this->username,$this->password);
-			if(!$this->_identity->authenticate())
-				$this->addError('password','Incorrect username or password.');
+			$this->_identity=new UserIdentity($this->email,$this->password);
+			if(!$this->_identity->authenticate()) {
+                if($this->_identity->errorCode === UserIdentity::ERROR_USERNAME_INVALID)
+                    $this->addError('email','Email does not exists.');
+                elseif($this->_identity->errorCode === UserIdentity::ERROR_PASSWORD_INVALID)
+                    $this->addError('password','Incorrect password.');
+            }
 		}
 	}
 
@@ -63,7 +69,8 @@ class LoginForm extends CFormModel
 	{
 		if($this->_identity===null)
 		{
-			$this->_identity=new UserIdentity($this->username,$this->password);
+            // $this->_identity will be set from the authenticate validator
+			$this->_identity=new UserIdentity($this->email,$this->password);
 			$this->_identity->authenticate();
 		}
 		if($this->_identity->errorCode===UserIdentity::ERROR_NONE)

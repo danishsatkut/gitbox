@@ -35,7 +35,7 @@ return array(
 	'components'=>array(
 		'user'=>array(
 			// enable cookie-based authentication
-			'allowAutoLogin'=>true,
+			'allowAutoLogin'=>false,
 		),
 		// uncomment the following to enable URLs in path-format
 		
@@ -93,4 +93,11 @@ return array(
 		// this is used in contact page
 		'adminEmail'=>'gitbox@localhost.com',
 	),
+    
+    // Attach a login required for all pages behavior
+    'behaviors'=>array(
+        'onBeginRequest'=>array(
+            'class'=>'application.components.RequireLogin',
+        )
+    ),
 );

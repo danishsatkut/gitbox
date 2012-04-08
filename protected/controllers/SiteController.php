@@ -71,6 +71,11 @@ class SiteController extends Controller
 	 */
 	public function actionLogin()
 	{
+        // If user is already logged in, redirect to homepage
+        if(!Yii::app()->user->isGuest)
+            $this->redirect(Yii::app()->homeUrl);
+        
+        // Else perform login action
 		$model=new LoginForm;
 
 		// if it is ajax validation request
@@ -101,4 +106,41 @@ class SiteController extends Controller
 		Yii::app()->user->logout();
 		$this->redirect(Yii::app()->homeUrl);
 	}
+    
+    /**
+     * Register the current user and redirect to the login page
+     * 
+     * @todo change the register view to provide a good view of registration
+     * @todo add a feedback to the user after registration in the login page
+     * 
+     */
+    public function actionRegister()
+    {
+        $model=new User('register');
+
+        // uncomment the following code to enable ajax-based validation
+        /*
+        if(isset($_POST['ajax']) && $_POST['ajax']==='user-register-form')
+        {
+            echo CActiveForm::validate($model);
+            Yii::app()->end();
+        }
+        */
+
+        if(isset($_POST['User']))
+        {
+            $model->attributes=$_POST['User'];
+            
+            if($model->validate())
+            {
+                // form inputs are valid, do something here
+                
+                
+                // Add the user in the table
+                if($model->save())
+                    $this->redirect(array('login'));
+            }
+        }
+        $this->render('register',array('model'=>$model));
+    }
 }
