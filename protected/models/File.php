@@ -13,6 +13,10 @@
  * @property string $dateCreated
  * @property string $createdBy_fk
  * @property string $folderId_fk
+ * 
+ * The following properties are available via relations:
+ * @property Folder $parent
+ * @property User $owner
  */
 class File extends CActiveRecord
 {
@@ -59,6 +63,8 @@ class File extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+            'parent' => array(self::BELONGS_TO, 'Folder', 'folderId_fk'),
+			'owner' => array(self::BELONGS_TO, 'User', 'createdBy_fk'),
 		);
 	}
 

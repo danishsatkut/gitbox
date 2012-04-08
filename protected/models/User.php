@@ -13,6 +13,12 @@
  * @property integer $avatar_width
  * @property integer $avatar_height
  * 
+ * The following properties are available via relations:
+ * @property File[] $files
+ * @property Folder[] $foldersModified
+ * @property Folder[] $foldersCreated
+ * @property VirtualFolder $virtualfolders
+ * 
  * New Added:
  * @property string firstname
  * @property string middlename
@@ -83,6 +89,10 @@ class User extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+            'files' => array(self::HAS_MANY, 'File', 'createdBy_fk'),
+			'foldersModified' => array(self::HAS_MANY, 'Folder', 'modifiedBy_fk'),
+			'foldersCreated' => array(self::HAS_MANY, 'Folder', 'createdBy_fk'),
+			'virtualfolders' => array(self::HAS_MANY, 'Virtualfolder', 'userId_fk'),
 		);
 	}
 
