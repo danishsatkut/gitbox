@@ -20,6 +20,12 @@
 		<?php echo $form->passwordField($model,'password'); ?>
 		<?php echo $form->error($model,'password'); ?>
 	</div>
+    
+    <div class="row">
+		<?php echo $form->labelEx($model,'passwordCompare'); ?>
+		<?php echo $form->passwordField($model,'passwordCompare'); ?>
+		<?php echo $form->error($model,'passwordCompare'); ?>
+	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'email'); ?>
