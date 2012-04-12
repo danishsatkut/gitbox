@@ -1,16 +1,35 @@
 <?php $this->pageTitle=Yii::app()->name; ?>
 
-<h1>Welcome to <i><?php echo CHtml::encode(Yii::app()->name); ?></i></h1>
+<p>Welcome, <?php echo Yii::app()->user->name; ?></p>
 
-<p>Congratulations! You have successfully created your Yii application.</p>
+<div>
+    <span><?php echo CHtml::link('Create new folder', $this->createUrl('folder/create')); ?></span>
+    <span><?php echo CHtml::link('Upload File', $this->createUrl('file/upload')); ?></span>
+</div>
 
-<p>You may change the content of this page by modifying the following two files:</p>
-<ul>
-	<li>View file: <tt><?php echo __FILE__; ?></tt></li>
-	<li>Layout file: <tt><?php echo $this->getLayoutFile('main'); ?></tt></li>
-</ul>
+<div>
+    <span>Your folders</span>
+</div>
 
-<p>For more details on how to further develop this application, please read
-the <a href="http://www.yiiframework.com/doc/">documentation</a>.
-Feel free to ask in the <a href="http://www.yiiframework.com/forum/">forum</a>,
-should you have any questions.</p>
+<?php echo "There are " . count($user->virtualfolders) . " folders in your box"; ?>
+
+<?php foreach($user->virtualfolders as $virtualFolder): ?>
+    <div>
+        <b><?php echo $virtualFolder->folder->folderName; ?></b>
+        <?php if(isset($virtualFolder->folder->folderDescription)): ?>
+        <div><?php echo $virtualFolder->folder->folderDescription; ?></div>
+        <?php else: ?>
+        <div>There is no description.</div>
+        <?php endif; ?>
+        <div><?php echo $virtualFolder->folder->dateCreated; ?></div>
+        
+    </div>
+<?php endforeach; ?>
+
+<?php foreach($user->files as $file): ?>
+
+    <div><?php echo $file->fileName; ?></div>
+        
+<?php endforeach; ?>
+
+<?php //var_dump(Yii::app()->user->id); ?>
