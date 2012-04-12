@@ -11,7 +11,7 @@
  * @property string $dateModified
  * @property string $createdBy_fk
  * @property string $modifiedBy_fk
- * @property string $folderPath
+ * @property string $folderPath => modified to null
  * 
  * The following attributes are available from relations:
  * @property File[] $files
@@ -124,5 +124,16 @@ class Folder extends CActiveRecord
         $this->dateModified =  $date->getTimestamp();
         
         return parent::beforeSave();
+    }
+    
+    /**
+     * Generates the folder path using username and folder name
+     * 
+     * This method generates an actual path to be used by the file system to
+     * retrieve the files. This path is not stored in database.
+     */
+    public function generatePath() {
+        return Yii::app()->storage->folder->realpath . "/" . $this->owner->username . 
+                "/" . $this->folderName;
     }
 }

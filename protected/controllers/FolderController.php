@@ -68,16 +68,33 @@ class FolderController extends Controller
 
 		if(isset($_POST['Folder']))
 		{
-            // data from the form
+            // Populate model from form data.
 			$model->folderName=$_POST['Folder']['folderName'];
             $model->folderDescription = $_POST['Folder']['folderDescription'] === '' ? null : 
                 $_POST['Folder']['folderDescription'];
             
             // generate additional data
-            $model->owner = $model->modifiedBy = Yii::app()->user->id;
+            $model->createdBy_fk = $model->modifiedBy_fk = Yii::app()->user->id;
             
-            //if($model->save())
-			//	$this->redirect(array('view','id'=>$model->folderId_pk));
+            // The actual folder to be created
+            $folder = CFile::set($model->generatePath());
+            
+            // If model is successfully stored in the database
+            if($model->save()) {
+                // Save a record of virtual folder
+                $virtualFolder = new VirtualFolder();
+                
+                $virtualFolder->folderId_fk = $model->folderId_pk;
+                $virtualFolder->userId_fk = Yii::app()->user->id;
+                $virtualFolder->parentVirtualFolderId_fk = 0;
+                $virtualFolder->isOwner = true;
+                
+                if($virtualFolder->save()) {
+                    // If virtual folder creation is successful, create the actual directory
+                    $folder->createDir();
+                    $this->redirect(array('view','id'=>$model->folderId_pk));
+                }
+            }
 		}
 
 		$this->render('create',array(
