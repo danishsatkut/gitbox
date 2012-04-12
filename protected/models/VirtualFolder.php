@@ -54,6 +54,9 @@ class VirtualFolder extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+            'folder' => array(self::BELONGS_TO, 'Folder', 'folderId_fk'),
+            'parent' => array(self::BELONGS_TO, 'VirtualFolder', 'parentVirtualFolderId_fk'),
+            'childs' => array(self::HAS_MANY, 'VirtualFolder', 'parentVirtualFolderId_fk'),
 		);
 	}
 
