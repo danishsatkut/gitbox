@@ -6,7 +6,7 @@
  * @author Danish Satkut
  */
 class StorageFolder extends CApplicationComponent {
-    private $_path = "C:\xampp\htdocs\working-sandbox\gitbox\protected\storage";
+    private $_path = "C:/xampp/htdocs/working-sandbox/gitbox/protected/storage";
     private $_folder;
     
     public function __construct() {
