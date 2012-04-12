@@ -8,9 +8,6 @@
 
 	<p class="note">Fields with <span class="required">*</span> are required.</p>
    
-    <?php var_dump($model); ?>
-    <?php var_dump(Yii::app()->storage->folder); ?>
-    
 	<?php echo $form->errorSummary($model); ?>
 
 	<div class="row">
