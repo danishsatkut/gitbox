@@ -1,0 +1,270 @@
+/* 
+    Document   : main
+    Created on : 16 Apr, 2012, 1:40:03 PM
+    Author     : Vivek
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+root { 
+    display: block;
+}
+
+html {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    padding-top: 60px;
+    padding-bottom: 0px;
+    
+    margin-bottom: 0px;
+    background: url(../../img/bg-noise.jpg);
+}
+
+.icon-user-avatar {
+    background-image: url(../../img/user.jpeg);
+    background-position: 0 0;
+    width: 22px;
+    height: 22px;
+}
+
+/* Actual files and comments area
+*/
+.minimum-height {
+    min-height: 400px;
+}
+
+/* Styles for displaying each file */
+#clip-list li.clip, #comment-list li.clip {
+    padding: 12px 10px;
+    border-bottom: 1px solid #EDEDED;
+}
+
+.icon-clip {
+    float: left;
+    width: 48px;
+    height: 48px;
+    margin-right: 10px;
+}
+
+i.thumbnail {
+    /* account for some 2+2 px padding */
+    width: 44px;
+    height: 44px;
+    background: none;
+    padding: 2px;
+}
+
+/* All the classes for displaying each image */
+.file-rar {
+    background: url(../../img/rar_48x32.png) -1px 0px;
+}
+
+.file-text {
+    background: url(../../img/text_48x32.png) -1px 0px;
+}
+
+.file-docx {
+    background: url(../../img/docx_48x32.png) -1px 0px;
+}
+
+.folder-generic {
+    background: url(../../img/generic_48x48.png) -1px 0px;
+}
+
+.folder-shared {
+    background: url(../../img/shared_48x48.png) -1px 0px;
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    background: url(../../img/box_user_avatar_large.png) -1px 0px;
+}
+
+.clip-info {
+    padding: 6px 0;
+}
+
+.clip-file-name {
+    font-weight: bold;
+}
+
+.clip-buttons {
+    display: inline-block;
+    margin: 0;
+}
+
+.center {
+    margin: 0px auto;
+    width: 150px;
+    display: block;
+}
+
+footer {
+    /* Leaves some space between browser window and footer bottom */
+    padding: 10px 0; /* Fix for making comment section look good without content */
+    font-family: "Open Sans", "lucida grande", "Segoe UI", arial, verdana, 'lucida sans unicode', tahoma, sans-serif;
+}
+
+footer .span3 p {
+    /* To bring the paragraph in middle of footer */
+    padding: 23px 0px;
+    margin: 0;
+}
+
+/************************************************
+    Sidebar styles
+*************************************************/
+
+#sidebar {
+    font-family: "Open Sans", "lucida grande", "Segoe UI", arial, verdana, 'lucida sans unicode', tahoma, sans-serif;
+}
+
+section#account-info {
+    margin-top: 35px;
+}
+
+section span {
+    display: inline-block;
+    padding: 4px 0px;
+    margin-bottom: 4px;
+}
+
+section h4 {
+    padding-bottom: 10px;
+}
+
+#storage-usage-progress {
+    margin-bottom: 0px;
+}
+
+/* ------------------------------------------------
+    Overriding the default styles from Bootstrap
+    ----------------------------------------------- */
+
+/* ---- Changing the breadcrumbs styles ---- */
+.breadcrumb {
+    /* Remove all default styles */
+    background: none;
+    border: none;
+    
+    /* Remove box-shadow */
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    
+    /* Make it inline */
+    display: inline;
+}
+
+.breadcrumb ul {
+    display: inline;
+}
+
+.breadcrumb li {
+    padding: 3px 0;
+}
+
+/* ---- Changing the font for the button ---- */
+.btn {
+    font-family:  "Helvetica Neue", Helvetica, Arial, sans-serif;
+    vertical-align: top;    /* fix when using buttons in the btn-toolbar */
+}
+
+/* ---- Creates a alignment between nav-tabs and tab-pane ---- */
+.nav-tabs {
+    /* Merge tab pane and tabs */
+    margin-bottom: 0px;
+}
+
+/* ---- Modifies the tabbed pane to create the file section area ---- */
+.tab-pane {
+    background: white;
+    min-height: 400px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -o-border-radius: 2px;
+    border-radius: 2px;
+    box-shadow: 0 1px 2px #ccc;
+    
+    font-family: "Open Sans", "lucida grande", "Segoe UI", arial, verdana, 'lucida sans unicode', tahoma, sans-serif;
+    
+    /* Fix for aligning tab border and pane border */
+    margin-left: 1px;
+}
+
+form#search-form {
+    /* Removes the margin between subheader and tabs */
+    margin: 0px;
+}
+
+.label {
+    /* Brings the label in alignment with the text */
+    vertical-align: top;
+    line-height: 18px;
+}
+
+.input-append input {
+    border-top-left-radius: 14px;
+    border-bottom-left-radius: 14px;
+}
+
+.input-append button.btn {
+    border-top-right-radius: 14px;
+    border-bottom-right-radius: 14px;
+    padding-right: 10px;
+    box-shadow: rgba(0, 0, 0, 0.0742188) 0px 1px 1px 0px inset;
+}
+
+/******************************************** 
+More icons from glyphicons 
+*********************************************/
+.icon-group-white {
+    width: 21px;
+    height: 14px;
+    background: url(../images/glyphish-icons/icon-group-white.png) 0 0;
+}
+
+.icon-contact-white {
+    width: 20px;
+    height: 14px;
+    background: url(../images/glyphish-icons/icon-contact-white.png) 0 0;
+}
+
+.icon-info {
+    width: 22px;
+    height: 22px;
+    background: url(../../img/info.png) 0 0;
+}
+
+
+/********************************************
+Playground
+*********************************************/
+#search-form {
+    -webkit-transition: top 3s ease;
+    -webkit-transition: float 3s ease;
+}
+
+#search-form button { 
+}
+
+
+/* Playground */
+
+@media (max-width: 979px) {
+    #search-form {
+        position: absolute;
+        float: left;
+        top: 12px;
+        left: 100px;
+    }
+}
+
+@media (max-width: 1199px) {
+    #search-form button {
+        visibility: hidden;
+    }
+}
