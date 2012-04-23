@@ -14,10 +14,12 @@
  * @property string $folderPath => modified to null
  * 
  * The following attributes are available from relations:
- * @property File[] $files
- * @property User owner
- * @property User modifiedBy
- * @property VirtualFolder[] virtualfolders
+ * @property File[] $files array of files in the folder
+ * @property User $owner User who owns the folder
+ * @property User $modifiedBy User who last modified the folder
+ * @property VirtualFolder[] $virtualfolders array of VirtualFolders of this folder
+ * @property int $virtualfoldersCount number of virtualfolders of this folder
+ * @property int $filesCount number of files in the folder
  */
 class Folder extends CActiveRecord
 {
@@ -69,10 +71,12 @@ class Folder extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-            'files' => array(self::HAS_MANY, 'File', 'folderId_fk'),
-			'modifiedBy' => array(self::BELONGS_TO, 'User', 'modifiedBy_fk'),
-			'owner' => array(self::BELONGS_TO, 'User', 'createdBy_fk'),
-			'virtualfolders' => array(self::HAS_MANY, 'Virtualfolder', 'folderId_fk'),
+                    'files' => array(self::HAS_MANY, 'File', 'folderId_fk'),
+                    'modifiedBy' => array(self::BELONGS_TO, 'User', 'modifiedBy_fk'),
+                    'owner' => array(self::BELONGS_TO, 'User', 'createdBy_fk'),
+                    'virtualfolders' => array(self::HAS_MANY, 'Virtualfolder', 'folderId_fk'),
+                    'virtualfoldersCount'=>array(self::STAT, 'VirtualFolder', 'folderId_fk'),
+                    'filesCount' => array(self::STAT, 'File', 'folderId_fk'),
 		);
 	}
 
@@ -135,5 +139,64 @@ class Folder extends CActiveRecord
     public function generatePath() {
         return Yii::app()->storage->folder->realpath . "/" . $this->owner->username . 
                 "/" . $this->folderName;
+    }
+    
+    /**
+     * Checks whether the folder is shared
+     * 
+     * Finds whether two virtual folder with same folder_id exists
+     * 
+     * @return bool If shared true, else false 
+     */
+    public function isShared() {
+        $isShared = false;
+        if($this->virtualfoldersCount > 1) {
+            $isShared = true;
+        }
+        return $isShared;
+    }
+    
+    /**
+     * Returns whether the last action was created or modified
+     * @return boolean true if created and false if modified
+     */
+    private function lastAction() {
+        $actionCreated = true;  // Created
+        if($this->dateModified > $this->dateCreated) {
+            $actionCreated = false;  // Modified
+        }
+        return $actionCreated;
+    }
+    
+    public function lastActionLabel() {
+        if($this->lastAction()) {
+            return "Created";
+        }
+        return "Modified";
+    }
+    
+    public function lastActionDate() {
+        // Default is created
+        $date = null;
+        
+        if($this->lastAction()) {
+            $date = new DateTime($this->dateCreated);
+        } else {
+            $date = new DateTime($this->dateModified);
+        }
+        
+        return $date->format('M d, Y');
+    }
+    
+    /**
+     * Returns the name of user who performed last action on the folder
+     *
+     * @return string username
+     */
+    public function lastActionBy() {
+        if($this->lastAction()) {
+            return $this->owner->username;
+        }
+        return $this->modifiedBy->username;
     }
 }

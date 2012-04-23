@@ -18,6 +18,7 @@
  * @property Folder[] $foldersModified
  * @property Folder[] $foldersCreated
  * @property VirtualFolder $virtualfolders
+ * @property int $virtualfolderCount
  * 
  * New Added:
  * @property string firstname
@@ -92,7 +93,8 @@ class User extends CActiveRecord
             'files' => array(self::HAS_MANY, 'File', 'createdBy_fk'),
 			'foldersModified' => array(self::HAS_MANY, 'Folder', 'modifiedBy_fk'),
 			'foldersCreated' => array(self::HAS_MANY, 'Folder', 'createdBy_fk'),
-			'virtualfolders' => array(self::HAS_MANY, 'Virtualfolder', 'userId_fk'),
+			'virtualfolders' => array(self::HAS_MANY, 'VirtualFolder', 'userId_fk'),
+                        'virtualfolderCount' => array(self::STAT, 'VirtualFolder', 'userId_fk'),
 		);
 	}
 
