@@ -61,45 +61,45 @@ class FolderController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new Folder;
+            $model=new Folder;
 
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+            // Uncomment the following line if AJAX validation is needed
+            // $this->performAjaxValidation($model);
 
-		if(isset($_POST['Folder']))
-		{
+            if(isset($_POST['Folder']))
+            {
             // Populate model from form data.
-			$model->folderName=$_POST['Folder']['folderName'];
-            $model->folderDescription = $_POST['Folder']['folderDescription'] === '' ? null : 
-                $_POST['Folder']['folderDescription'];
+                $model->folderName=$_POST['Folder']['folderName'];
+                $model->folderDescription = $_POST['Folder']['folderDescription'] === '' ? null : 
+                    $_POST['Folder']['folderDescription'];
             
             // generate additional data
-            $model->createdBy_fk = $model->modifiedBy_fk = Yii::app()->user->id;
-            
-            // The actual folder to be created
-            $folder = CFile::set($model->generatePath());
-            
-            // If model is successfully stored in the database
-            if($model->save()) {
-                // Save a record of virtual folder
-                $virtualFolder = new VirtualFolder();
-                
-                $virtualFolder->folderId_fk = $model->folderId_pk;
-                $virtualFolder->userId_fk = Yii::app()->user->id;
-                $virtualFolder->parentVirtualFolderId_fk = 0;
-                $virtualFolder->isOwner = true;
-                
-                if($virtualFolder->save()) {
-                    // If virtual folder creation is successful, create the actual directory
-                    $folder->createDir();
-                    $this->redirect(array('view','id'=>$model->folderId_pk));
+                $model->createdBy_fk = $model->modifiedBy_fk = Yii::app()->user->id;
+
+                // The actual folder to be created
+                $folder = CFile::set($model->generatePath());
+
+                // If model is successfully stored in the database
+                if($model->save()) {
+                    // Save a record of virtual folder
+                    $virtualFolder = new VirtualFolder();
+
+                    $virtualFolder->folderId_fk = $model->folderId_pk;
+                    $virtualFolder->userId_fk = Yii::app()->user->id;
+                    $virtualFolder->parentVirtualFolderId_fk = 0;
+                    $virtualFolder->isOwner = true;
+
+                    if($virtualFolder->save()) {
+                        // If virtual folder creation is successful, create the actual directory
+                        $folder->createDir();
+                        $this->redirect(array('view','id'=>$model->folderId_pk));
+                    }
                 }
             }
-		}
 
-		$this->render('create',array(
-			'model'=>$model,
-		));
+            $this->render('create',array(
+                    'model'=>$model,
+            ));
 	}
 
 	/**
@@ -109,21 +109,21 @@ class FolderController extends Controller
 	 */
 	public function actionUpdate($id)
 	{
-		$model=$this->loadModel($id);
+            $model=$this->loadModel($id);
 
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+            // Uncomment the following line if AJAX validation is needed
+            // $this->performAjaxValidation($model);
 
-		if(isset($_POST['Folder']))
-		{
-			$model->attributes=$_POST['Folder'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->folderId_pk));
-		}
+            if(isset($_POST['Folder']))
+            {
+                $model->attributes=$_POST['Folder'];
+                if($model->save())
+                    $this->redirect(array('view','id'=>$model->folderId_pk));
+            }
 
-		$this->render('update',array(
-			'model'=>$model,
-		));
+            $this->render('update',array(
+                'model'=>$model,
+            ));
 	}
 
 	/**
@@ -151,10 +151,10 @@ class FolderController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Folder');
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
-		));
+            $dataProvider=new CActiveDataProvider('Folder');
+            $this->render('index',array(
+                    'dataProvider'=>$dataProvider,
+            ));
 	}
 
 	/**
