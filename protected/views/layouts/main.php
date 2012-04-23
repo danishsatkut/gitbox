@@ -78,20 +78,23 @@
     
     <?php $this->endWidget(); ?>
     
-    
-	<?php if(isset($this->breadcrumbs)):?>
-		<?php $this->widget('zii.widgets.CBreadcrumbs', array(
-			'links'=>$this->breadcrumbs,
-		)); ?><!-- breadcrumbs -->
-	<?php endif?>
+<div class="container">
 
-	<?php echo $content; ?>
+    <?php echo $content; ?>
 
-	<div id="footer">
-		Copyright &copy; <?php echo date('Y'); ?> by My Company.<br/>
-		All Rights Reserved.<br/>
-		<?php echo Yii::powered(); ?>
-	</div><!-- footer -->
+	<footer>
+            <div class="row">
+                <div class="span9">
+                    <a href="http://www.w3.org/html/logo/">
+                        <img src="<?php echo Yii::app()->baseUrl; ?>/images/html5-badge-h-css3-semantics.png" width="165" height="64" alt="HTML5 Powered with CSS3 / 
+                        Styling, and Semantics" title="HTML5 Powered with CSS3 / Styling, and Semantics">
+                    </a>
+                </div>
+                <div class="span3">
+                    <p class="pull-right">&copy; Gharda Institute of Technology</p>
+                </div>
+            </div>
+        </footer>
 
 </div><!-- page -->
     
