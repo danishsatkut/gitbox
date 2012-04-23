@@ -20,11 +20,11 @@ body {
     padding-bottom: 0px;
     
     margin-bottom: 0px;
-    background: url(../../img/bg-noise.jpg);
+    background: url(../images/bg-noise.jpg);
 }
 
 .icon-user-avatar {
-    background-image: url(../../img/user.jpeg);
+    background-image: url(../images/user.jpeg);
     background-position: 0 0;
     width: 22px;
     height: 22px;
@@ -57,33 +57,7 @@ i.thumbnail {
     padding: 2px;
 }
 
-/* All the classes for displaying each image */
-.file-rar {
-    background: url(../../img/rar_48x32.png) -1px 0px;
-}
-
-.file-text {
-    background: url(../../img/text_48x32.png) -1px 0px;
-}
-
-.file-docx {
-    background: url(../../img/docx_48x32.png) -1px 0px;
-}
-
-.folder-generic {
-    background: url(../../img/generic_48x48.png) -1px 0px;
-}
-
-.folder-shared {
-    background: url(../../img/shared_48x48.png) -1px 0px;
-}
-
-.user-avatar {
-    width: 40px;
-    height: 40px;
-    background: url(../../img/box_user_avatar_large.png) -1px 0px;
-}
-
+/* Styles for file */
 .clip-info {
     padding: 6px 0;
 }
@@ -96,6 +70,42 @@ i.thumbnail {
     display: inline-block;
     margin: 0;
 }
+
+/* Styles for file description */
+div.clip-file-description {
+    color: #CCC;
+}
+
+
+
+/* All the classes for displaying each image */
+.file-rar {
+    background: url(../images/rar_48x32.png) -1px 0px;
+}
+
+.file-text {
+    background: url(../images/text_48x32.png) -1px 0px;
+}
+
+.file-docx {
+    background: url(../images/docx_48x32.png) -1px 0px;
+}
+
+.folder-generic {
+    background: url(../images/generic_48x48.png) -1px 0px;
+}
+
+.folder-shared {
+    background: url(../images/shared_48x48.png) -1px 0px;
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    background: url(../images/box_user_avatar_large.png) -1px 0px;
+}
+
+
 
 .center {
     margin: 0px auto;
@@ -236,7 +246,7 @@ More icons from glyphicons
 .icon-info {
     width: 22px;
     height: 22px;
-    background: url(../../img/info.png) 0 0;
+    background: url(../images/info.png) 0 0;
 }
 
 
