@@ -66,15 +66,16 @@ class User extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs. Only these will be generated in Forms
 		return array(
-			array('username', 'length', 'max'=>20),
-			array('password', 'length', 'max'=>40, 'min'=>8),
+			array('username', 'length', 'max'=>20, 'min'=>6),
+			array('password, passwordCompare', 'length', 'max'=>40, 'min'=>8),
+            array('passwordCompare', 'required', 'on'=>'register'),
             array('password', 'compare', 'compareAttribute'=>'passwordCompare', 'on'=>'register'),
             array('email', 'length', 'max'=>80),
             array('firstname, middlename, lastname', 'length', 'max'=>30),
             array('username, password, email, firstname, lastname', 'required'),
             array('username, email', 'unique'),
             array('email','email'),
-            array('passwordCompare', 'required', 'on'=>'register'),
+            
             
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.

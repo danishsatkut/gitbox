@@ -20,6 +20,7 @@ return array(
             'application.models.*',
             'application.components.*',
             'application.extensions.file.CFile',
+            'application.extensions.helpers.*',
 	),
 
 	'modules'=>array(

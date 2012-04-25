@@ -70,7 +70,9 @@
                     ),
                     'submenuOptions'=>array('class'=>'dropdown-menu'),
                     
-                )
+                ),
+                array('label'=>'Login', 'url'=>array('site/login'), 'visible'=>(Yii::app()->user->isGuest)),
+                array('label'=>'Register', 'url'=>array('site/register'), 'visible'=>Yii::app()->user->isGuest),
             ),
             'htmlOptions'=>array('class'=>'nav pull-right'),    // Set options on outer ul
         ));

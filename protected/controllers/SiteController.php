@@ -5,8 +5,9 @@ class SiteController extends Controller
     public $layout = '//layouts/column1';
 
     /**
-        * Declares class-based actions.
-        */
+     * 
+     * Declares class-based actions.
+     */
     public function actions()
     {
             return array(
@@ -24,15 +25,14 @@ class SiteController extends Controller
     }
 
     /**
-        * This is the default 'index' action that is invoked
-        * when an action is not explicitly requested by users.
-        */
+     * This is the default 'index' action that is invoked
+     * when an action is not explicitly requested by users.
+     */
     public function actionIndex()
     {
         // Redirect the request to the virtualfolder/view/0
-        $this->redirect(array('virtualFolder/view/0'));
+        $this->redirect('home');
         
-        // Display all the user's box content
         
 
     }
@@ -97,7 +97,7 @@ class SiteController extends Controller
                     $model->attributes=$_POST['LoginForm'];
                     // validate user input and redirect to the previous page if valid
                     if($model->validate() && $model->login()) {
-                        $this->redirect(Yii::app()->user->returnUrl);
+                        $this->redirect(Yii::app()->homeUrl);
                     }
             }
             // display the login form
@@ -125,13 +125,12 @@ class SiteController extends Controller
         $model=new User('register');
 
         // uncomment the following code to enable ajax-based validation
-        /*
+        
         if(isset($_POST['ajax']) && $_POST['ajax']==='user-register-form')
         {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }
-        */
 
         if(isset($_POST['User']))
         {
@@ -140,11 +139,21 @@ class SiteController extends Controller
             if($model->validate())
             {
                 // form inputs are valid, do something here
-                
+                // set the flash message for the user to show that registration went successfully
+                Yii::app()->user->setFlash('registerSuccess', array(
+                    'heading'=>'Yiipee! Registration Successful!',
+                    'body'=>'Looks like you made it. Now login and go upload something!',
+                    ));
                 
                 // Add the user in the table
                 if($model->save())
                     $this->redirect(array('login'));
+            } else {
+                Yii::app()->user->setFlash('registerFailure',array(
+                    'heading'=>'Oops! Something went wrong!',
+                    'body'=>'There was some problem with your registration. We would love if you could try again. 
+                        Sorry for the inconvenience.'
+                    ));
             }
         }
         $this->render('register',array('model'=>$model));
