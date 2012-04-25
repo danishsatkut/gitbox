@@ -1,4 +1,4 @@
-<div class="row">
+
     <div class="span9 tabbable"><!-- Tabs for switching between files and comments  -->
         <ul class="nav nav-tabs">
             <li class="active"><a href="#1" data-toggle="tab"><i class="icon-folder-open" style="width: 16px"></i> Files and Folders</a></li>
@@ -139,25 +139,4 @@
 
             </div>
         </div>
-</div>
-
-<?php foreach($user->virtualfolders as $virtualFolder): ?>
-    <div>
-        <b><?php echo $virtualFolder->folder->folderName; ?></b>
-        <?php if(isset($virtualFolder->folder->folderDescription)): ?>
-        <div><?php echo $virtualFolder->folder->folderDescription; ?></div>
-        <?php else: ?>
-        <div>There is no description.</div>
-        <?php endif; ?>
-        <div><?php echo $virtualFolder->folder->dateCreated; ?></div>
-        
     </div>
-<?php endforeach; ?>
-
-<?php foreach($user->files as $file): ?>
-
-    <div><?php echo $file->fileName; ?></div>
-        
-<?php endforeach; ?>
-
-<?php //var_dump(Yii::app()->user->id); ?>

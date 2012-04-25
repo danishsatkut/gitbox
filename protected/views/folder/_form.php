@@ -2,8 +2,8 @@
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'folder-form',
-	'enableAjaxValidation'=>false,
-    'enableClientValidation'=>true,
+	'enableAjaxValidation'=>true,
+        'enableClientValidation'=>true,
 )); ?>
 
 	<p class="note">Fields with <span class="required">*</span> are required.</p>

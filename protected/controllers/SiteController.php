@@ -2,7 +2,7 @@
 
 class SiteController extends Controller
 {
-    public $layout = '//layouts/column2';
+    public $layout = '//layouts/column1';
 
     /**
         * Declares class-based actions.
@@ -29,12 +29,12 @@ class SiteController extends Controller
         */
     public function actionIndex()
     {
+        // Redirect the request to the virtualfolder/view/0
+        $this->redirect(array('virtualFolder/view/0'));
+        
         // Display all the user's box content
-        $user = User::model()
-                ->with('virtualfolders')
-                ->findByPk(Yii::app()->user->id);
+        
 
-            $this->render('index', array('user'=>$user));
     }
 
     /**

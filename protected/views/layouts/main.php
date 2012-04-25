@@ -33,7 +33,7 @@
     <?php
         $this->widget('ext.ziix.widgets.CNav', array(
             'items'=>array(
-                array('label'=>'Files', 'url'=>array('site/index'), 'visible'=>!Yii::app()->user->isGuest, 
+                array('label'=>'Files', 'url'=>Yii::app()->baseUrl .'/home', 'visible'=>!Yii::app()->user->isGuest, 
                     'icon'=>array('class'=>'icon-inbox icon-white'),),
                 array('label'=>'Forum', 'url'=>Yii::app()->baseUrl . '/forum',
                     'icon'=>array('class'=>'icon-group-white')),
@@ -101,18 +101,7 @@
     <!-- Le javascript
         ================================================== -->
         <!-- Placed at the end of the document so the pages load faster -->
-        <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.js"></script>
-        <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/bootstrap-transition.js"></script>
-        <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/bootstrap-alert.js"></script>
-        <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/bootstrap-modal.js"></script>
-        <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/bootstrap-dropdown.js"></script>
-        <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/bootstrap-scrollspy.js"></script>
-        <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/bootstrap-tab.js"></script>
-        <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/bootstrap-tooltip.js"></script>
-        <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/bootstrap-popover.js"></script>
-        <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/bootstrap-button.js"></script>
-        <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/bootstrap-collapse.js"></script>
-        <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/bootstrap-carousel.js"></script>
-        <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/bootstrap-typeahead.js"></script>
+        <?php Yii::app()->getClientScript()->registerCoreScript('jquery'); ?>
+        <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/bootstrap.min.js"></script>
 </body>
 </html>

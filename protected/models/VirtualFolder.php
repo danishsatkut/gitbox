@@ -95,4 +95,37 @@ class VirtualFolder extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+        
+        /**
+         * Returns an array of the ancestor name of a virtualFolder. The 0th
+         * element contains the grand-child where as the last element contains
+         * the grand-parent. It always return at least one element in array.
+         * 
+         * @todo currently it returns id, change it later to name
+         *
+         * @return array names of the ancestors
+         */
+        public function generateBreadcrumbs() {
+            $breadcrumbs = array();
+            $virtualFolder = $this;
+            // Current folder should not be a link
+            $breadcrumbs[] = $virtualFolder->virtualFolderId_pk;
+            while($virtualFolder->hasParent()) {
+                $virtualFolder = $virtualFolder->parent;
+                $breadcrumbs[$virtualFolder->virtualFolderId_pk] = array('virtualFolder/view', 'id'=>$virtualFolder->virtualFolderId_pk);
+            }
+            return $breadcrumbs;
+        }
+        
+        /**
+         * Checks whether virtualFolder has a parent
+         * 
+         * @return boolean 
+         */
+        public function hasParent() {
+            if($this->parent === null) {
+                return false;
+            }
+            return true;
+        }
 }

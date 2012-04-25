@@ -8,6 +8,8 @@
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
     
+        'defaultController'=>'site',
+    
 	'name'=>'GITBox',
 
 	// preloading 'log' component
@@ -15,9 +17,9 @@ return array(
 
 	// autoloading model and component classes
 	'import'=>array(
-		'application.models.*',
-		'application.components.*',
-        'application.extensions.file.CFile',
+            'application.models.*',
+            'application.components.*',
+            'application.extensions.file.CFile',
 	),
 
 	'modules'=>array(
@@ -43,6 +45,8 @@ return array(
 		'urlManager'=>array(
 			'urlFormat'=>'path',
 			'rules'=>array(
+                                'home'=>'virtualFolder/view/id/0',
+                                '<view:about>'=>'site/page',
 				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
