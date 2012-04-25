@@ -67,20 +67,59 @@ class VirtualFolderController extends Controller
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
-	public function actionCreate()
+	public function actionCreate($id = 0)
 	{
-		$model=new VirtualFolder;
+        
+        $model=new VirtualFolder();
+        
+        // Uncomment the following line if AJAX validation is needed
+        $this->performAjaxValidation($model);
+        
+        if(isset($_POST['VirtualFolder']))
+            {
+                $validId = $id == 0 ? true : VirtualFolder::virtualFolderExists($id);
+                // Test if $id is valid
+                if($validId) {
+                    // Id is valid
+                    $model->name = $_POST['VirtualFolder']['name'];
+                    $model->description = $_POST['VirtualFolder']['description'] === '' ? null : 
+                            $_POST['VirtualFolder']['description'];
 
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+                    // First we need to create the actual folder
+                    $realFolder = new Folder();
+                    $realFolder->createdBy_fk = $realFolder->modifiedBy_fk = Yii::app()->user->id;
+                    $realFolder->folderName = Folder::generateHashedName();
+                    // create a fake name
+                    $realFolder->fakeName = $model->name;
+                    
 
-		if(isset($_POST['VirtualFolder']))
-		{
-			$model->attributes=$_POST['VirtualFolder'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->virtualFolderId_pk));
-		}
+                    // If the realFolder is saved successfully in database, continue.
+                    if($realFolder->save()) {
+                        $model->folderId_fk = $realFolder->folderId_pk;
+                        $model->userId_fk = Yii::app()->user->id;
+                        // parent id is passed to the action, defaults to 0
+                        $model->parentVirtualFolderId_fk = $id;
+                        $model->isOwner = true;
 
+                        if($model->save()) {
+                            // If virtual folder creation is successful, create the actual directory
+                            $folder = CFile::set($realFolder->generatePath());
+                            $folder->createDir();
+                            Yii::app()->user->setFlash('folderCreationSuccess', array(
+                                'heading'=>'Yiipee! Your folder was created successfully!',
+                                'body'=> 'Your folder - ' . $model->name . ' - was successfully created.',
+                                ));
+                            $this->redirect(array('view','id'=>$id));
+                        }
+                    }
+                } else {
+                    Yii::app()->user->setFlash('folderCreationFailure', array(
+                        'heading'=>'Oops! Something went wrong!',
+                        'body'=>'Invalid parent specified. Sorry, can\'t create a folder in invalid parent.',
+                    ));
+                    $this->redirect(array('create','id'=>0));
+                }
+            }
 		$this->render('create',array(
 			'model'=>$model,
 		));

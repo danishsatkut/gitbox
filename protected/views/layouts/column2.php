@@ -2,9 +2,6 @@
 
     <div class="row"><!-- Sub header content -->
         
-
-    
-        
         <?php echo $content; ?>
         
         

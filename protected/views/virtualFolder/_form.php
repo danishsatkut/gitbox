@@ -3,39 +3,41 @@
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'virtual-folder-form',
 	'enableAjaxValidation'=>false,
+    'enableClientValidation'=>true,
+    'htmlOptions'=>array('class'=>'well form-horizontal'),
 )); ?>
+    
+    
+        
+        <div class="control-group">
+            <div class="control-label">
+            <?php echo $form->labelEx($model,'name'); ?>
+            </div>
+            <div class="controls">
+            <?php echo $form->textField($model,'name',array('size'=>30,'maxlength'=>30)); ?>
+            <?php echo $form->error($model,'name'); ?>
+            </div>
+        </div>
 
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
+        <div class="control-group">
+            <div class="control-label">
+            <?php echo $form->labelEx($model,'description'); ?>
+            </div>
+            <div class="controls">
+            <?php echo $form->textField($model,'description',array('size'=>30,'maxlength'=>140)); ?>
+            <?php echo $form->error($model,'description'); ?>
+            </div>
+        </div>
 
-	<?php echo $form->errorSummary($model); ?>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'userId_fk'); ?>
-		<?php echo $form->textField($model,'userId_fk',array('size'=>10,'maxlength'=>10)); ?>
-		<?php echo $form->error($model,'userId_fk'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'folderId_fk'); ?>
-		<?php echo $form->textField($model,'folderId_fk',array('size'=>10,'maxlength'=>10)); ?>
-		<?php echo $form->error($model,'folderId_fk'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'parentVirtualFolderId_fk'); ?>
-		<?php echo $form->textField($model,'parentVirtualFolderId_fk',array('size'=>10,'maxlength'=>10)); ?>
-		<?php echo $form->error($model,'parentVirtualFolderId_fk'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'isOwner'); ?>
-		<?php echo $form->textField($model,'isOwner'); ?>
-		<?php echo $form->error($model,'isOwner'); ?>
-	</div>
-
-	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
-	</div>
+        <div class="form-actions">
+            <?php echo CHtml5::submitButton($model->isNewRecord ? 'Create' : 'Save',
+                        array('class'=>'btn btn-primary')
+                    ); ?>
+            <?php echo CHtml5::link('Cancel',
+                        array('site/index'),
+                        array('class'=>'btn')
+                    ); ?>
+        </div>
 
 <?php $this->endWidget(); ?>
 

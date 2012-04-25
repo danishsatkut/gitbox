@@ -1,5 +1,12 @@
     <div class="span9">
-        
+        <?php if(Yii::app()->user->hasFlash('folderCreationSuccess')): ?>
+        <?php $flashMessage = Yii::app()->user->getFlash('folderCreationSuccess'); ?>
+        <div class="alert alert-success alert-block fade in">
+            <a class="close" data-dismiss="alert" href="#">&times;</a>
+            <h4 class="alert-heading"><?php echo $flashMessage['heading']; ?></h4>
+            <?php echo $flashMessage['body']; ?>
+        </div>
+        <?php endif; ?>
         <?php
             // Can't call generateBreadcrumbs on home
             $this->pageTitle = Yii::app()->name . ' - ';
@@ -19,7 +26,7 @@
         
 
         <div class="pull-right">
-            <a class="btn" data-toggle="modal" href="#folderCreate"><i class="icon-plus"></i> New Folder</a>
+            <a class="btn" href="<?php echo $this->createUrl('virtualFolder/create', array('id'=>$currentFolder->virtualFolderId_pk)); ?>"><i class="icon-plus"></i> New Folder</a>
             <a href="#" class="btn"><i class="icon-arrow-up"></i> Upload File</a>
         </div>
     </div>

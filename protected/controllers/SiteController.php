@@ -31,7 +31,7 @@ class SiteController extends Controller
     public function actionIndex()
     {
         // Redirect the request to the virtualfolder/view/0
-        $this->redirect('home');
+        $this->redirect(Yii::app()->baseUrl . '/home');
         
         
 

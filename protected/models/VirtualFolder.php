@@ -7,8 +7,12 @@
  * @property string $virtualFolderId_pk
  * @property string $userId_fk
  * @property string $folderId_fk
- * @property string $parentVirtualFolderId_fk
+ * @property string $parentVirtualFolderId_fk   value '0' represents root folder
  * @property integer $isOwner
+ * 
+ * Newly Added:
+ * @property string $name name of the folder in the user's box
+ * @property string $description description of the folder
  */
 class VirtualFolder extends CActiveRecord
 {
@@ -37,12 +41,26 @@ class VirtualFolder extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('userId_fk, folderId_fk, parentVirtualFolderId_fk, isOwner', 'required'),
-			array('isOwner', 'numerical', 'integerOnly'=>true),
-			array('userId_fk, folderId_fk, parentVirtualFolderId_fk', 'length', 'max'=>10),
+			array('name', 'required'),
+            /**
+             * The following criteria states that name must be unique where
+             * userId_fk, parentVirtualFolderId_fk are same and user is owner of
+             * the folder in question.
+             * 
+             * NOTE: I am not sure if isOwner = 1, will do the trick all the time.
+             * When shared folders come into play, we might need some different
+             * strategy most likely on application level. Some thoughts are to
+             * rename the shared folders automatically.
+             * 
+             * @todo Unit test for this condition.
+             */
+            array('name', 'unique', 'criteria'=>array(
+                'condition'=>'userId_fk=:uId AND parentVirtualFolderId_fk=:pvfId AND isOwner=:isO',
+                'params'=>array(':uId'=>$this->userId_fk, ':pvfId'=>$this->parentVirtualFolderId_fk, ':isO'=>1),
+            )),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('virtualFolderId_pk, userId_fk, folderId_fk, parentVirtualFolderId_fk, isOwner', 'safe', 'on'=>'search'),
+			array('name', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -71,6 +89,8 @@ class VirtualFolder extends CActiveRecord
 			'folderId_fk' => 'Folder Id Fk',
 			'parentVirtualFolderId_fk' => 'Parent Virtual Folder Id Fk',
 			'isOwner' => 'Is Owner',
+            'name' => 'Folder Name',
+            'description' => 'Folder Description',
 		);
 	}
 
@@ -85,12 +105,7 @@ class VirtualFolder extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('virtualFolderId_pk',$this->virtualFolderId_pk,true);
-		$criteria->compare('userId_fk',$this->userId_fk,true);
-		$criteria->compare('folderId_fk',$this->folderId_fk,true);
-		$criteria->compare('parentVirtualFolderId_fk',$this->parentVirtualFolderId_fk,true);
-		$criteria->compare('isOwner',$this->isOwner);
-
+		$criteria->compare('name', $this->name);
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
@@ -109,10 +124,11 @@ class VirtualFolder extends CActiveRecord
             $breadcrumbs = array();
             $virtualFolder = $this;
             // Current folder should not be a link
-            $breadcrumbs[] = $virtualFolder->virtualFolderId_pk;
+            $breadcrumbs[] = $virtualFolder->name;
             while($virtualFolder->hasParent()) {
                 $virtualFolder = $virtualFolder->parent;
-                $breadcrumbs[$virtualFolder->virtualFolderId_pk] = array('virtualFolder/view', 'id'=>$virtualFolder->virtualFolderId_pk);
+                // creates a map of 'label'=>'url'
+                $breadcrumbs[$virtualFolder->name] = array('virtualFolder/view', 'id'=>$virtualFolder->virtualFolderId_pk);
             }
             return $breadcrumbs;
         }
@@ -127,5 +143,35 @@ class VirtualFolder extends CActiveRecord
                 return false;
             }
             return true;
+        }
+        
+        public function createVirtualFolder($realFolder) {
+            $realFolder->setHashedName();
+            $realFolder->createdBy_fk = $realFolder->modifiedBy_fk = Yii::app()->user->id;
+            $folder = CFile::set($realFolder->generatePath());
+            
+            // If the realFolder is saved successfully in database, continue.
+            if($realFolder->save()) {
+                $this->folderId_fk = $realFolder->folderId_pk;
+                $this->userId_fk = Yii::app()->user->id;
+                $this->parentVirtualFolderId_fk = 0;
+                $this->isOwner = true;
+
+                if($this->save()) {
+                    // If virtual folder creation is successful, create the actual directory
+                    $folder->createDir();
+                    $this->redirect(array('view','id'=>$model->folderId_pk));
+                }
+            }
+        }
+        
+        /**
+         * Checks whether the virtual folder exists in database
+         * 
+         * @param int $id The virtual folder id to be checked
+         * @return boolean true if a record exists, false otherwise. 
+         */
+        public static function virtualFolderExists($id) {
+            return VirtualFolder::model()->exists('virtualFolderId_pk = ' . $id);
         }
 }

@@ -6,12 +6,13 @@
  * The followings are the available columns in table 'folder':
  * @property string $folderId_pk
  * @property string $folderName
- * @property string $folderDescription
  * @property string $dateCreated
  * @property string $dateModified
  * @property string $createdBy_fk
  * @property string $modifiedBy_fk
- * @property string $folderPath => modified to null
+ * 
+ * Newly added:
+ * @property string $fakeName name in recycle bin
  * 
  * The following attributes are available from relations:
  * @property File[] $files array of files in the folder
@@ -51,7 +52,7 @@ class Folder extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('folderName', 'required'),
-			array('folderName', 'length', 'max'=>30),
+			array('folderName', 'length', 'max'=>40),
             
             // The following rule should be implemented in order to provide unique
             // folder names in a directory.
@@ -106,15 +107,6 @@ class Folder extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('folderId_pk',$this->folderId_pk,true);
-		$criteria->compare('folderName',$this->folderName,true);
-		$criteria->compare('folderDescription',$this->folderDescription,true);
-		$criteria->compare('dateCreated',$this->dateCreated,true);
-		$criteria->compare('dateModified',$this->dateModified,true);
-		$criteria->compare('createdBy_fk',$this->createdBy_fk,true);
-		$criteria->compare('modifiedBy_fk',$this->modifiedBy_fk,true);
-		$criteria->compare('folderPath',$this->folderPath,true);
-
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
@@ -139,6 +131,19 @@ class Folder extends CActiveRecord
     public function generatePath() {
         return Yii::app()->storage->folder->realpath . "/" . $this->owner->username . 
                 "/" . $this->folderName;
+    }
+    
+    /**
+     * Generates a hashed name to store folder
+     * 
+     * @return string sha1 hash of the username and current timestamp 
+     */
+    public static function generateHashedName() {
+        // generates a hash of current user-name and current timestamp
+        $strToHash = Yii::app()->user->name;
+        $date = new DateTime();
+        $strToHash .= $date->getTimestamp();
+        return sha1($strToHash);
     }
     
     /**

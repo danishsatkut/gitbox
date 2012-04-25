@@ -2,7 +2,9 @@
     <i class="icon-clip <?php echo $virtualFolder->folder->isShared() ? 'folder-shared' : 'folder-generic'; ?>"></i>
     <div class="clip-info">
         <div class="clip-file">
-            <span class="clip-file-name"><?php echo $virtualFolder->folder->folderName; ?></span>
+            <a href="<?php echo $this->createUrl('virtualFolder/view', array('id' => $virtualFolder->virtualFolderId_pk)); ?>">
+            <span class="clip-file-name"><?php echo $virtualFolder->name; ?></span>
+            </a>
 
             <div class="btn-toolbar clip-buttons pull-right">
                 <a class="btn btn-primary btn-mini" href="#share">
