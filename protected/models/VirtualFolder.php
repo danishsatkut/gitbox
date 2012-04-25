@@ -172,6 +172,9 @@ class VirtualFolder extends CActiveRecord
          * @return boolean true if a record exists, false otherwise. 
          */
         public static function virtualFolderExists($id) {
+            if($id == 0) {
+                return true;
+            }
             return VirtualFolder::model()->exists('virtualFolderId_pk = ' . $id);
         }
 }

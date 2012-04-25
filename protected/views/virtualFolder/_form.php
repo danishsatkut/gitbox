@@ -2,14 +2,12 @@
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'virtual-folder-form',
-	'enableAjaxValidation'=>false,
+	'enableAjaxValidation'=>true,
     'enableClientValidation'=>true,
     'htmlOptions'=>array('class'=>'well form-horizontal'),
 )); ?>
     
-    
-        
-        <div class="control-group">
+    <div class="control-group">
             <div class="control-label">
             <?php echo $form->labelEx($model,'name'); ?>
             </div>
@@ -18,7 +16,8 @@
             <?php echo $form->error($model,'name'); ?>
             </div>
         </div>
-
+        
+        <?php if($model->isNewRecord): ?>
         <div class="control-group">
             <div class="control-label">
             <?php echo $form->labelEx($model,'description'); ?>
@@ -28,13 +27,14 @@
             <?php echo $form->error($model,'description'); ?>
             </div>
         </div>
+        <?php endif; ?>
 
         <div class="form-actions">
             <?php echo CHtml5::submitButton($model->isNewRecord ? 'Create' : 'Save',
                         array('class'=>'btn btn-primary')
                     ); ?>
             <?php echo CHtml5::link('Cancel',
-                        array('site/index'),
+                        $model->isNewRecord ? array('virtualFolder/view', 'id'=>$id) : array('virtualFolder/view', 'id'=>$model->parent->virtualFolderId_pk),
                         array('class'=>'btn')
                     ); ?>
         </div>

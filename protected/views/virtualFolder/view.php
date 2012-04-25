@@ -7,6 +7,16 @@
             <?php echo $flashMessage['body']; ?>
         </div>
         <?php endif; ?>
+        
+        <?php if(Yii::app()->user->hasFlash('folderRenameSuccess')): ?>
+        <?php $flashMessage = Yii::app()->user->getFlash('folderRenameSuccess'); ?>
+        <div class="alert alert-success alert-block fade in">
+            <a class="close" data-dismiss="alert" href="#">&times;</a>
+            <h4 class="alert-heading"><?php echo $flashMessage['heading']; ?></h4>
+            <?php echo $flashMessage['body']; ?>
+        </div>
+        <?php endif; ?>
+        
         <?php
             // Can't call generateBreadcrumbs on home
             $this->pageTitle = Yii::app()->name . ' - ';

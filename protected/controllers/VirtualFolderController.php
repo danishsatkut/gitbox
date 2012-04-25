@@ -31,7 +31,7 @@ class VirtualFolderController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','admin','delete'),
+				'actions'=>array('create','rename','admin','delete'),
 				'users'=>array('@'),
 			),
 			array('deny',  // deny all users
@@ -69,7 +69,6 @@ class VirtualFolderController extends Controller
 	 */
 	public function actionCreate($id = 0)
 	{
-        
         $model=new VirtualFolder();
         
         // Uncomment the following line if AJAX validation is needed
@@ -77,9 +76,8 @@ class VirtualFolderController extends Controller
         
         if(isset($_POST['VirtualFolder']))
             {
-                $validId = $id == 0 ? true : VirtualFolder::virtualFolderExists($id);
                 // Test if $id is valid
-                if($validId) {
+                if(VirtualFolder::virtualFolderExists($id)) {
                     // Id is valid
                     $model->name = $_POST['VirtualFolder']['name'];
                     $model->description = $_POST['VirtualFolder']['description'] === '' ? null : 
@@ -107,7 +105,7 @@ class VirtualFolderController extends Controller
                             $folder->createDir();
                             Yii::app()->user->setFlash('folderCreationSuccess', array(
                                 'heading'=>'Yiipee! Your folder was created successfully!',
-                                'body'=> 'Your folder - ' . $model->name . ' - was successfully created.',
+                                'body'=> 'Your folder - <span class="label label-success">' . $model->name . '</span> - was successfully created.',
                                 ));
                             $this->redirect(array('view','id'=>$id));
                         }
@@ -122,6 +120,7 @@ class VirtualFolderController extends Controller
             }
 		$this->render('create',array(
 			'model'=>$model,
+            'id'=>$id,
 		));
 	}
 
@@ -130,21 +129,34 @@ class VirtualFolderController extends Controller
 	 * If update is successful, the browser will be redirected to the 'view' page.
 	 * @param integer $id the ID of the model to be updated
 	 */
-	public function actionUpdate($id)
+	public function actionRename($id)
 	{
 		$model=$this->loadModel($id);
-
+        $initialName = $model->name;
 		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+		$this->performAjaxValidation($model);
 
 		if(isset($_POST['VirtualFolder']))
 		{
-			$model->attributes=$_POST['VirtualFolder'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->virtualFolderId_pk));
+			$model->name = $_POST['VirtualFolder']['name'];
+            $model->description = $_POST['VirtualFolder']['description'];
+            
+			if($model->save()) {
+                Yii::app()->user->setFlash('folderRenameSuccess', array(
+                                'heading'=>'Yiipee! Your folder was renamed successfully!',
+                                'body'=> 'Your folder - <span class="label label-info">' . $initialName . '</span> - 
+                                    was successfully renamed to - <span class="label label-success">' . $model->name . '</span>.',
+                                ));
+            	$this->redirect(array('view','id'=>$model->parent->virtualFolderId_pk));
+            } else {
+                Yii::app()->user->setFlash('folderRenameFailure', array(
+                        'heading'=>'Oops! Something went wrong!',
+                        'body'=>'Invalid parent specified. Sorry, can\'t create a folder in invalid parent.',
+                    ));
+            }
 		}
 
-		$this->render('update',array(
+		$this->render('rename',array(
 			'model'=>$model,
 		));
 	}
@@ -174,10 +186,7 @@ class VirtualFolderController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('VirtualFolder');
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
-		));
+        $this->redirect(Yii::app()->baseUrl . '/home');
 	}
 
 	/**

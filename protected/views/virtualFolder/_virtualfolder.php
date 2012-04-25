@@ -16,7 +16,7 @@
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="#rename">Rename</a></li>
+                        <li><a href="<?php echo $this->createUrl('virtualFolder/rename', array('id'=> $virtualFolder->virtualFolderId_pk)); ?>">Rename</a></li>
                         <li><a href="#move">Move</a></li>
                         <li><a href="#copy">Copy</a></li>
                         <li><a href="#comment">Comment</a></li>
