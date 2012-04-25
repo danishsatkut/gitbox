@@ -1,15 +1,13 @@
     <div class="span9">
-        <div class="alert alert-block"><!-- Alert message -->
-            <a class="close" data-dismiss="alert">&times;</a>
-            <h4 class="alert-heading">Welcome!</h4>
-            Looks like this is the first time you have logged in. Please use the navigation
-            links above.
-        </div>
         
         <?php
             // Can't call generateBreadcrumbs on home
+            $this->pageTitle = Yii::app()->name . ' - ';
             if($currentFolder !== null) {
                 $breadcrumbs = $currentFolder->generateBreadcrumbs();
+                $this->pageTitle .= $breadcrumbs[0];
+            } else {
+                $this->pageTitle .= "All Files and Folders";
             }
         ?>
         <?php 

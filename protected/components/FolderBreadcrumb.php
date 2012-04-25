@@ -6,7 +6,7 @@ Yii::import('zii.widgets.CBreadcrumbs');
  * Provides the breadcrumb view for the folder hierarchy. It overrides CBreadcrumbs
  * in order to use markup and styles from Bootstrap.
  *
- * @author Vivek
+ * @author Bhavesh Prajapati
  */
 class FolderBreadcrumb extends CBreadcrumbs{
     public $tagName = "ul";
@@ -23,7 +23,7 @@ class FolderBreadcrumb extends CBreadcrumbs{
         if($this->homeLink!==false) {
             if(count($this->links) === 0) {
                 // If current page is home
-                $this->links[] = 'All file and folders';
+                $this->links[] = 'All files and folders';
             } else {
                 // If current page is other than home
                 $this->links['All files and folders']=$this->homeLink;
