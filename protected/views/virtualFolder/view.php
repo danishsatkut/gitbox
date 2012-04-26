@@ -1,21 +1,7 @@
     <div class="span9">
-        <?php if(Yii::app()->user->hasFlash('folderCreationSuccess')): ?>
-        <?php $flashMessage = Yii::app()->user->getFlash('folderCreationSuccess'); ?>
-        <div class="alert alert-success alert-block fade in">
-            <a class="close" data-dismiss="alert" href="#">&times;</a>
-            <h4 class="alert-heading"><?php echo $flashMessage['heading']; ?></h4>
-            <?php echo $flashMessage['body']; ?>
-        </div>
-        <?php endif; ?>
+        <?php echo $this->displayFlash('folderCreationSuccess'); ?>
         
-        <?php if(Yii::app()->user->hasFlash('folderRenameSuccess')): ?>
-        <?php $flashMessage = Yii::app()->user->getFlash('folderRenameSuccess'); ?>
-        <div class="alert alert-success alert-block fade in">
-            <a class="close" data-dismiss="alert" href="#">&times;</a>
-            <h4 class="alert-heading"><?php echo $flashMessage['heading']; ?></h4>
-            <?php echo $flashMessage['body']; ?>
-        </div>
-        <?php endif; ?>
+        <?php echo $this->displayFlash('folderRenameSuccess'); ?>
         
         <?php
             // Can't call generateBreadcrumbs on home
