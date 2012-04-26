@@ -95,7 +95,7 @@ class User extends CActiveRecord
 			'foldersModified' => array(self::HAS_MANY, 'Folder', 'modifiedBy_fk'),
 			'foldersCreated' => array(self::HAS_MANY, 'Folder', 'createdBy_fk'),
 			'virtualfolders' => array(self::HAS_MANY, 'VirtualFolder', 'userId_fk'),
-                        'virtualfolderCount' => array(self::STAT, 'VirtualFolder', 'userId_fk'),
+            'virtualfolderCount' => array(self::STAT, 'VirtualFolder', 'userId_fk'),
 		);
 	}
 

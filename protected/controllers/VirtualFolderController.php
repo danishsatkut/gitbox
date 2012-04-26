@@ -44,7 +44,7 @@ class VirtualFolderController extends Controller
 	 * Displays a particular model.
 	 * @param integer $id the ID of the model to be displayed
 	 */
-	public function actionView($id)
+	public function actionView($id = 0)
 	{
             $currentVirtualFolder = null;
             if($id !== 0) {
@@ -57,10 +57,19 @@ class VirtualFolderController extends Controller
                     'condition'=>'virtualfolders.parentVirtualFolderId_fk = ' . $id,
                 ));
             
-		$this->render('view',array(
-                    'user' => $user,
-                    'currentFolder'=>$currentVirtualFolder,
-		));
+            $folderId = $currentVirtualFolder  === null? 0 : $currentVirtualFolder->folder->folderId_pk;
+            
+            $criteria = new CDbCriteria();
+            $criteria->condition = 'folderId_fk = ' . $folderId;
+            
+            $files = File::model()
+                    ->findAll($criteria);
+            
+            $this->render('view',array(
+                        'user' => $user,
+                        'currentFolder'=>$currentVirtualFolder,
+                        'files'=>$files,
+            ));
 	}
 
 	/**

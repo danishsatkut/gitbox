@@ -14,7 +14,7 @@ class FileController extends Controller
 	public function filters()
 	{
 		return array(
-			'accessControl', // perform access control for CRUD operations
+			//'accessControl', // perform access control for CRUD operations
 		);
 	}
 
@@ -132,6 +132,62 @@ class FileController extends Controller
 			'dataProvider'=>$dataProvider,
 		));
 	}
+    
+    /**
+     * steps:
+     * 
+     * 1. Upload the file
+     * 2. Find the path of the folder from id where id is virtualFolderId
+     * 
+     * @param type $id 
+     */
+    public function actionUpload($id = 0) {
+        $this->layout = '//layouts/column1';
+        
+        // $dir = Yii::app()->storage->folder->realpath;
+        $uploaded = false;
+        $model = new FileUpload();
+       
+        
+        if(isset($_POST['FileUpload']))
+        {
+            $model->file = $_POST['FileUpload']['file'];
+            $file = CUploadedFile::getInstance($model,'file');
+            
+            if($id != 0) {
+                $virtualFolder = VirtualFolder::model()->findByPk($id);
+                $dir = $virtualFolder->folder->generatePath();
+            } else {
+                $dir = Yii::app()->storage->folder->realpath . "/" . Yii::app()->user->name;
+            }
+            if($model->validate()){
+                // Save the data in the database
+                
+                $fileModel = new File();
+                $fileModel->fileName = $file->name;
+                $fileModel->size = $file->size;
+                $fileModel->mime = $file->type;
+                $fileModel->extension = $file->extensionName;
+                $fileModel->createdBy_fk = Yii::app()->user->id;
+                if($id != 0) {
+                    $fileModel->folderId_fk = $virtualFolder->folder->folderId_pk;
+                }
+                
+                if($fileModel->save()) {
+                    $uploaded = $file->saveAs($dir.'/'.$file->getName());
+                    $this->redirect(array('virtualFolder/view','id'=>$id));
+                }
+            }
+        }
+        
+        $this->render('upload', array(
+            'model' => $model,
+            'uploaded' => $uploaded,
+            'dir' => $dir,
+            'file' => $file,
+            'id'=>$id,
+      ));
+    }
 
 	/**
 	 * Manages all models.

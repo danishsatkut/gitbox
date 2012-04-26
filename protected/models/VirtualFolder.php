@@ -76,6 +76,7 @@ class VirtualFolder extends CActiveRecord
                     'folder' => array(self::BELONGS_TO, 'Folder', 'folderId_fk'),
                     'parent' => array(self::BELONGS_TO, 'VirtualFolder', 'parentVirtualFolderId_fk'),
                     'childs' => array(self::HAS_MANY, 'VirtualFolder', 'parentVirtualFolderId_fk'),
+                    'owner' => array(self::BELONGS_TO, 'User', 'userId_fk'),
 		);
 	}
 

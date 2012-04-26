@@ -23,7 +23,7 @@
 
         <div class="pull-right">
             <a class="btn" href="<?php echo $this->createUrl('virtualFolder/create', array('id'=>$currentFolder->virtualFolderId_pk)); ?>"><i class="icon-plus"></i> New Folder</a>
-            <a href="#" class="btn"><i class="icon-arrow-up"></i> Upload File</a>
+            <a href="<?php echo $this->createUrl('file/upload', array('id'=>$currentFolder->virtualFolderId_pk)); ?>" class="btn"><i class="icon-arrow-up"></i> Upload File</a>
         </div>
     </div>
 
@@ -56,9 +56,15 @@
                         <?php endforeach; ?>
                     <?php endif; ?>
                     <!-- perform similar operation in files -->
+                    <?php if(count($files) > 0): ?>
+                        <?php foreach($files as $file): ?>
+                            <!-- Display each folder accordingly -->
+                            <?php echo $this->renderPartial('_file', array('file'=>$file)) ?>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
                 </ul>
             </div>
         </div>
     </div>
-
+<?php //var_dump($files); ?>
 <?php echo $this->renderPartial('_sidebar', array('user'=>$user)); ?>

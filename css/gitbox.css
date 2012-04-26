@@ -88,12 +88,28 @@ div.clip-file-description {
     background: url(../images/rar_48x32.png) -1px 0px;
 }
 
-.file-text {
+.file-txt {
     background: url(../images/text_48x32.png) -1px 0px;
 }
 
 .file-docx {
     background: url(../images/docx_48x32.png) -1px 0px;
+}
+
+.file-doc {
+    background: url(../images/docx_48x32.png) -1px 0px;
+}
+
+.file-jpeg, file-jpg {
+    background: url(../images/jpeg_48x32.png) -1px 0px;
+}
+
+.file-png {
+    background: url(../images/png_48x32.png) -1px 0px;
+}
+
+.file-zip {
+    background: url(../images/zip_48x32.png) -1px 0px;
 }
 
 .folder-generic {

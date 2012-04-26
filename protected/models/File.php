@@ -13,6 +13,7 @@
  * @property string $dateCreated
  * @property string $createdBy_fk
  * @property string $folderId_fk
+ * @property string $extension
  * 
  * The following properties are available via relations:
  * @property Folder $parent
@@ -45,13 +46,13 @@ class File extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('fileName, fileDescription, size, mime, filePath, dateCreated, createdBy_fk, folderId_fk', 'required'),
-			array('fileName, mime', 'length', 'max'=>30),
-			array('size, createdBy_fk, folderId_fk', 'length', 'max'=>10),
-			array('filePath', 'length', 'max'=>31),
+			//array('fileName, fileDescription, size, mime, filePath, dateCreated, createdBy_fk, folderId_fk', 'required'),
+			//array('fileName, mime', 'length', 'max'=>30),
+			//array('size, createdBy_fk, folderId_fk', 'length', 'max'=>10),
+			//array('filePath', 'length', 'max'=>31),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('fileId_pk, fileName, fileDescription, size, mime, filePath, dateCreated, createdBy_fk, folderId_fk', 'safe', 'on'=>'search'),
+			//array(, 'safe', 'on'=>'search'),
 		);
 	}
 

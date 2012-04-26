@@ -28,9 +28,9 @@
             </div>
         </div>
         <div class="clip-file-description">
-            <span class="clip-file-status"><?php echo $virtualFolder->folder->lastActionLabel(); ?></span>
+            <span class="clip-file-status"><?php echo $virtualFolder->folder->lastActionLabel(); ?></span> on
             <span class="clip-file-date"><?php echo $virtualFolder->folder->lastActionDate(); ?></span> by
-            <span class="clip-file-user"><a href="<?php echo $this->createUrl('user/view', array('id'=>Yii::app()->user->id)); ?>"><?php echo $virtualFolder->folder->lastActionBy(); ?></a></span> - 
+            <span class="clip-file-user"><a href="<?php echo $this->createUrl('user/view', array('id'=>$virtualFolder->owner->id)); ?>"><?php echo $virtualFolder->folder->lastActionBy(); ?></a></span> - 
             <span class="clip-file-count"><i class="icon-file"></i><?php echo $virtualFolder->folder->filesCount; ?></span>
             <span class="clip-file-comments"><i class="icon-comment"></i> 0</span>
             <?php if($virtualFolder->folder->isShared()): ?>
