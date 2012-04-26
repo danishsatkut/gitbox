@@ -204,4 +204,15 @@ class Folder extends CActiveRecord
         }
         return $this->modifiedBy->username;
     }
+    
+    /**
+     * Returns the number of collaborator on a folder.
+     * 
+     * @return int number of collaborators 
+     */
+    public function getCollaboratorCount() {
+        $criteria = new CDbCriteria();
+        $criteria->condition = 'folderId_fk = ' . $this->folderId_pk;
+        return VirtualFolder::model()->count($criteria);
+    }
 }

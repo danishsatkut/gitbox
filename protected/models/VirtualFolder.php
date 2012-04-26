@@ -58,6 +58,7 @@ class VirtualFolder extends CActiveRecord
                 'condition'=>'userId_fk=:uId AND parentVirtualFolderId_fk=:pvfId AND isOwner=:isO',
                 'params'=>array(':uId'=>$this->userId_fk, ':pvfId'=>$this->parentVirtualFolderId_fk, ':isO'=>1),
             )),
+            array('name, userId_fk, parentVirtualFolderId_fk, isOwner, description', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('name', 'safe', 'on'=>'search'),

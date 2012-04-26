@@ -14,7 +14,7 @@ class VirtualFolderController extends Controller
 	public function filters()
 	{
 		return array(
-			'accessControl', // perform access control for CRUD operations
+			//'accessControl', // perform access control for CRUD operations
 		);
 	}
 
@@ -180,6 +180,79 @@ class VirtualFolderController extends Controller
 		else
 			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
 	}
+    
+    /**
+     * Share a particular virtual folder.
+     * 
+     * Currently allows sharing with only one person.
+     * 
+     * steps:
+     * 1) Create a Form Model, to add email-address of other users.
+     * 2) Perform validation on that Form Model to guarantee that the user exists.
+     * 3) If the user exists, create a virtual folder in the user's view
+     * 
+     * @param int $id Virtual Folder id that is to be shared.
+     *  
+     */
+    public function actionShare($id) {
+        // Make sure id is never 0
+        $this->layout = '//layouts/column1';
+        $shareForm = new ShareForm();
+        
+        $this->performAjaxValidation($shareForm);
+        
+        if(isset($_POST['ShareForm'])) {
+            $shareForm->email = $_POST['ShareForm']['email'];
+            
+            if($shareForm->validate()) {
+                // Username exists now bring its id
+                $criteria = new CDbCriteria;
+                $criteria->select = 'id, username';
+                $criteria->condition = 'email=:email';
+                $criteria->params = array(':email'=>$shareForm->email);
+                $shareWithUser = User::model()->find($criteria);
+                
+                // Now we need the virtual folder that is to be shared
+                $model = $this->loadModel($id);
+                
+                // New virtual folder to be stored in the shared user's box
+                $sharedFolder = new VirtualFolder();
+                $sharedFolder->userId_fk = $shareWithUser->id;
+                $sharedFolder->isOwner = 0;
+                $sharedFolder->parentVirtualFolderId_fk = 0;    // Shared folder's are visible in root folder by default
+                
+                // Common properties
+                $sharedFolder->folderId_fk = $model->folderId_fk;
+                $sharedFolder->name = $model->name;
+                $sharedFolder->description = $model->description;
+                
+                if($sharedFolder->save()) {
+                    Yii::app()->user->setFlash('shareSuccess', array(
+                                'heading'=>'Yiipee! Your folder was sahred successfully!',
+                                'body'=> 'Your folder - <span class="label label-success">' . $model->name . '</span> - 
+                                    was successfully shared with <span class="label label-info">' . $shareWithUser->username . '</span>',
+                                ));
+                    $this->redirect(array('site/index'));
+                } else {
+                    Yii::app()->user->setFlash('shareFailure', array(
+                        'heading'=>'Oops! Something went wrong!',
+                        'body'=>'We are sorry but your your folder - <span class="label label-error">' . $model->name . '</span> 
+                            could not be shared.',
+                    ));
+                }
+                
+                // Use the user->id to create a virtual folder in the user's drive
+                
+            }
+        }
+        
+        $this->render('share', array(
+            'model'=>$shareForm, 
+            'user'=>$shareWithUser->id,
+            'folder'=>$model,
+            'sharedFolder'=>$sharedFolder,
+            ));
+    }
 
 	/**
 	 * Lists all models.
@@ -229,4 +302,25 @@ class VirtualFolderController extends Controller
 			Yii::app()->end();
 		}
 	}
+    
+    /**
+     *  
+     */
+    protected function createVirtualFolder() {
+        
+    }
+    
+    public function displayFlash($flashName) {
+        if(Yii::app()->user->hasFlash($flashName)) {
+            $output = '';
+            $flashMessage = Yii::app()->user->getFlash($flashName);
+            $output .= '<div class="alert alert-success alert-block fade in">';
+            $output .= '<a class="close" data-dismiss="alert" href="#">&times;</a>';
+            $output .= '<h4 class="alert-heading">';
+            $output .= $flashMessage['heading'] . '</h4>';
+            $output .= $flashMessage['body'];
+            $output .= '</div>';
+            return $output;
+        }
+    }
 }

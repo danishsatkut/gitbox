@@ -7,7 +7,7 @@
             </a>
 
             <div class="btn-toolbar clip-buttons pull-right">
-                <a class="btn btn-primary btn-mini" href="#share">
+                <a class="btn btn-primary btn-mini" href="<?php echo $this->createUrl('virtualFolder/share', array('id'=>$virtualFolder->virtualFolderId_pk)); ?>">
                     <i class="icon-share"></i> Share
                 </a>
                 <div class="btn-group ">
@@ -34,7 +34,7 @@
             <span class="clip-file-count"><i class="icon-file"></i><?php echo $virtualFolder->folder->filesCount; ?></span>
             <span class="clip-file-comments"><i class="icon-comment"></i> 0</span>
             <?php if($virtualFolder->folder->isShared()): ?>
-            <span class="clip-file-collaborators"><i class="icon-user"></i> </span>
+            <span class="clip-file-collaborators"><i class="icon-user"></i> <?php echo $virtualFolder->folder->getCollaboratorCount(); ?></span>
             <?php endif; ?>
         </div>
     </div>
