@@ -101,26 +101,58 @@ class FileController extends Controller
 			'model'=>$model,
 		));
 	}
+    
+    /**
+     *
+     * @param type $id the id of file
+     */
+    public function actionTrash($id) {
+        $fileToBeTrashed = $this->loadModel($id);
+        
+        $fileToBeTrashed->t_folderId = $fileToBeTrashed->folderId_fk;
+        
+        $fileToBeTrashed->folderId_fk = null;
+        
+        if($fileToBeTrashed->save()) {
+            $this->redirect(array('site/index'));
+        }
+    }
 
 	/**
 	 * Deletes a particular model.
 	 * If deletion is successful, the browser will be redirected to the 'admin' page.
 	 * @param integer $id the ID of the model to be deleted
+     * 
+     * @todo NOTE: This is not an efficient way of deleting, we should probably 
+     * use POST request.
 	 */
 	public function actionDelete($id)
 	{
-		if(Yii::app()->request->isPostRequest)
-		{
-			// we only allow deletion via POST request
 			$this->loadModel($id)->delete();
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax']))
-				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-		}
-		else
-			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('site/index'));
 	}
+    
+    /**
+     * @todo find where the file is
+     * 
+     * @param type $id file id
+     */
+    public function actionDownload($id) {
+        $file = $this->loadModel($id);
+        if($file->parent !== null) {
+            $folderPath = $file->parent->generatePath();
+        } else {
+            $folderPath =  Yii::app()->storage->folder->realpath . "/" . Yii::app()->user->name;
+        }
+        
+        $file = CFile::set($folderPath . '/' . $file->fileName);
+        $file->download();
+        
+        //$this->render('_download', array('file'=>$file));
+    }
 
 	/**
 	 * Lists all models.

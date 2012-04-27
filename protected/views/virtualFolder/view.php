@@ -20,7 +20,8 @@
             ));
         ?>
         
-
+        
+        
         <div class="pull-right">
             <a class="btn" href="<?php echo $this->createUrl('virtualFolder/create', array('id'=>$currentFolder->virtualFolderId_pk)); ?>"><i class="icon-plus"></i> New Folder</a>
             <a href="<?php echo $this->createUrl('file/upload', array('id'=>$currentFolder->virtualFolderId_pk)); ?>" class="btn"><i class="icon-arrow-up"></i> Upload File</a>
@@ -38,7 +39,6 @@
         </form>
     </div>
 </div><!-- End of sub header -->
-    
 <div class="row"><!-- Start of the content -->
     <div class="span9 tabbable"><!-- Tabs for switching between files and comments  -->
         <ul class="nav nav-tabs">
@@ -64,6 +64,29 @@
                     <?php endif; ?>
                 </ul>
             </div>
+            <div class="tab-pane" id="2"><!-- Comments tab -->
+                                
+                                <ul id="comment-list" class="unstyled">
+                                    <li class="clip">
+                                        <i class="icon-clip user-avatar"></i>
+                                        <div class="clip-info">
+                                            <div class="clip-file">
+                                                <span class="clip-file-name">Vivek Rathod</span>
+                                            </div>
+                                            <div class="btn-toolbar clip-buttons pull-right">
+                                                    <a class="btn btn-mini" href="#edit">
+                                                        <i class="icon-share"></i> Edit
+                                                    </a>
+                                                    <button class="btn btn-mini btn-danger file-delete">
+                                                        <i class="icon-trash"></i>
+                                                    </button>
+                                                </div>
+                                            <div class="clip-file-description">This rar file contains all the program</div>
+                                        </div>
+                                    </li>
+                                </ul>
+                                
+                            </div>
         </div>
     </div>
 <?php //var_dump($files); ?>

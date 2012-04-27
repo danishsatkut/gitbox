@@ -5,11 +5,15 @@
             <a href="<?php echo $this->createUrl('virtualFolder/view', array('id' => $virtualFolder->virtualFolderId_pk)); ?>">
             <span class="clip-file-name"><?php echo $virtualFolder->name; ?></span>
             </a>
-
+            <?php if($virtualFolder->folder->isShared() && $virtualFolder->isOwner): ?>
+            <span class="label label-default">Owner</span>
+            <?php endif; ?>
             <div class="btn-toolbar clip-buttons pull-right">
+                <?php if($virtualFolder->isOwner): ?>
                 <a class="btn btn-primary btn-mini" href="<?php echo $this->createUrl('virtualFolder/share', array('id'=>$virtualFolder->virtualFolderId_pk)); ?>">
                     <i class="icon-share"></i> Share
                 </a>
+                <?php endif; ?>
                 <div class="btn-group ">
                     <a class="btn btn-mini dropdown-toggle" data-toggle="dropdown" href="#">
                         Options
@@ -22,9 +26,9 @@
                         <li><a href="#comment">Comment</a></li>
                     </ul>
                 </div>
-                <button class="btn btn-mini btn-danger file-delete">
+                <a class="btn btn-mini btn-danger file-delete" href="<?php echo $this->createUrl('virtualFolder/delete', array('id'=>$virtualFolder->virtualFolderId_pk)); ?>">
                     <i class="icon-trash"></i>
-                </button>
+                </a>
             </div>
         </div>
         <div class="clip-file-description">
@@ -38,4 +42,19 @@
             <?php endif; ?>
         </div>
     </div>
+    <div class="modal fade" id="adeleteModal">
+                        <div class="modal-header">
+                            <a class="close" data-dismiss="modal">×</a>
+                            <h3>
+                                Deleting Folder - <?php echo $virtualFolder->name; ?>
+                            </h3>
+                            </div>
+                            <div class="modal-body">
+                                <p>Are you sure you want to delete this folder.</p>
+                            </div>
+                            <div class="modal-footer">
+                                <a href="#" class="btn" data-dismiss="modal">Close</a>
+                                <button class="btn btn-danger">Delete</button>
+                            </div>
+                        </div>
 </li>

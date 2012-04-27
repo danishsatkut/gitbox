@@ -158,4 +158,15 @@ class SiteController extends Controller
         }
         $this->render('register',array('model'=>$model));
     }
+    
+    public function actionTrash() {
+        // Need file models that have been trahsed
+        
+        $criteria = new CDbCriteria();
+        $criteria->condition = 'folderId_fk = NULL AND createdBy_fk = ' . Yii::app()->user->id;
+        
+        $file = File::model()->findAll($criteria);
+        
+        $this->render('trash', array('file'=>$file));
+    }
 }
